@@ -1,0 +1,50 @@
+---
+const { route } = Astro.props;
+---
+
+<a
+  hx-get=`/show-info?page=${route}`
+  hx-target="#info-cont"
+  hx-swap="outerHTML"
+  class="info-btn button">Info</a
+>
+<style>
+  a {
+    width: 3vh;
+    height: 3vh;
+    position: fixed;
+    top: 48.5vh;
+    left: 4vmin;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.2rem;
+
+    transition:
+      box-shadow 400ms,
+      color 1400ms,
+      background-color 1200ms;
+
+    &:hover {
+      color: black;
+      box-shadow:
+        0 0 15px inset white,
+        0 0 15px white,
+        0 0 30px white;
+      background-color: white;
+    }
+  }
+
+  .active {
+    color: black;
+    box-shadow:
+      0 0 15px inset white,
+      0 0 15px white,
+      0 0 30px white;
+    background-color: white;
+  }
+</style>

@@ -1,0 +1,21 @@
+---
+const currentPage = Astro.url.searchParams.get("page");
+
+let message = "";
+if (currentPage === "/") message = "This is the React route";
+---
+
+<div id="info-cont" style="pointer-events: auto;">
+  <div>
+    <div style="display: flex; flex-direction: column; width: 100%">
+      <a
+        style="align-self: end;"
+        hx-get="remove-info"
+        hx-target="#info-cont"
+        hx-swap="outerHTML">XXXX</a
+      >
+
+      <div style="align-self: center;">{message}</div>
+    </div>
+  </div>
+</div>

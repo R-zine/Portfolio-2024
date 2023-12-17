@@ -1,0 +1,86 @@
+---
+import { colors } from "../styles/colors";
+
+interface Props {
+  title: string;
+  route?: string;
+  isActive: boolean;
+}
+
+const { title, route, isActive } = Astro.props;
+---
+
+<a href={route} class={isActive ? "active button" : "button"}>
+  <li style="display: flex; gap: 12px">
+    <h2 class="before">/</h2>
+    <h2>
+      {title}
+    </h2>
+    <div></div>
+  </li></a
+>
+<style define:vars={{ grey: colors.grey }}>
+  a {
+    text-decoration: none;
+  }
+
+  .active {
+    pointer-events: none;
+    cursor: none;
+    margin-left: 10px;
+    text-shadow:
+      0 0 5px white,
+      0 0 3px white;
+
+    & > div {
+      box-shadow: 0 5px 2px white;
+      left: -40px;
+      top: 1.2rem;
+    }
+
+    .before {
+      text-shadow: -10px 0 white;
+      text-decoration: underline;
+    }
+  }
+
+  li {
+    list-style-type: none;
+    transition: 300ms;
+
+    &:hover {
+      margin-left: 10px;
+
+      & > div {
+        box-shadow: 0 5px 2px white;
+        left: -40px;
+        top: 1.2rem;
+      }
+
+      .before {
+        text-shadow: -10px 0 white;
+      }
+    }
+  }
+
+  .before {
+    text-shadow: 0 0 #ffffff;
+    transition: 300ms;
+  }
+
+  h2 {
+    color: var(--grey);
+    margin: 0;
+    font-size: 1.2rem;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  div {
+    width: 5rem;
+    height: 1px;
+    position: relative;
+    top: 1.5rem;
+    left: -8.5rem;
+    transition: 300ms;
+  }
+</style>
