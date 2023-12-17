@@ -1,4 +1,4 @@
-import { Suspense, useState, useRef, useEffect } from "react";
+import { Suspense, useState, useRef, useEffect, useLayoutEffect } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 // @ts-ignore
@@ -8,8 +8,9 @@ import {
   ChromaticAberration,
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
+import font from "./font.ttf";
 
-const targetOffset = 0.3;
+const targetOffset = 0.6;
 
 export const Home = () => {
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -18,6 +19,17 @@ export const Home = () => {
   const spotlightRef = useRef<any>(null);
 
   const displacementMap = useLoader(TextureLoader, "287.jpg");
+
+  useLayoutEffect(() => {
+    const spinner = document.querySelector(".spinner");
+    if (spinner) (spinner as HTMLElement).style.display = "none";
+
+    return () => {
+      const spinner = document.querySelector(".spinner");
+      if (spinner) (spinner as HTMLElement).style.display = "block";
+      document.querySelector(".info-btn")?.classList.remove("active");
+    };
+  }, []);
 
   useEffect(() => {
     if (spotlightRef.current) {
@@ -53,7 +65,7 @@ export const Home = () => {
           gl={{ antialias: true }}
           onMouseMove={(e) =>
             setPos({
-              x: (e.clientX - window.innerWidth / 2) / 1000,
+              x: (e.clientX - window.innerWidth / 2) / 1000 - 0.5,
               y: (e.clientY - window.innerHeight / 2) / 1000,
             })
           }
@@ -72,8 +84,10 @@ export const Home = () => {
             decay={4.5}
             penumbra={1}
             castShadow
+            shadow-mapSize-width={2048}
+            shadow-mapSize-height={2048}
           />
-          <mesh position={[0, 0, -1]} receiveShadow>
+          <mesh position={[0, 0, -1.1]} receiveShadow>
             <boxGeometry args={[10, 10, 1]} />
             <meshStandardMaterial
               bumpMap={displacementMap}
@@ -84,8 +98,11 @@ export const Home = () => {
             />
           </mesh>
           <Text
-            scale={0.5}
+            scale={0.4}
+            font={font}
             fontSize={0.3}
+            outlineColor="white"
+            outlineWidth={0.005}
             lineHeight={0.7}
             color="white"
             anchorX="center"
@@ -93,22 +110,25 @@ export const Home = () => {
             castShadow
           >
             Welcome.&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;I am Ivan Radev,
-            &#10;&#13;a creative, full-stack developer based
-            Bulgaria.&#10;&#13;&#10;&#13;My calling is weaving visions into
-            reality. &#10;&#13;&#10;&#13;&#10;&#13;This showcase website is made
+            &#10;&#13;a creative, full-stack developer based in
+            Bulgaria.&#10;&#13;&#10;&#13;I weave visions into reality since
+            2007. &#10;&#13;&#10;&#13;&#10;&#13;This showcase website is made
             with Astro &#10;&#13;+ React / Angular / Svelte / Vue / HTMX
           </Text>
           <Text
             onPointerEnter={() => setIsHovered(true)}
-            scale={0.5}
+            scale={0.4}
+            font={font}
             fontSize={0.3}
+            outlineColor="white"
+            outlineWidth={0.005}
             lineHeight={0.7}
             color="white"
             anchorX="center"
             anchorY={3}
             castShadow
           >
-            More information is available via the Info button.
+            The Info button is powered by HTMX.
           </Text>
         </Canvas>
       </Suspense>
