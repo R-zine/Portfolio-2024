@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Tech from "../components/Vue/stack.vue";
+---
+
+<Layout title="Ivan Radev - Frontend Developer Portfolio - Stack">
+  <Tech client:only="vue" />
+</Layout>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>

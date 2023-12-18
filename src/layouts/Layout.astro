@@ -51,13 +51,14 @@ const route = Astro.url.pathname;
         />
       </ul>
     </nav>
-    <InfoButton route={route} />
+
     <main>
       <div>
         <slot />
       </div>
     </main>
     <div id="info-cont"></div>
+    <InfoButton route={route} />
     <div class="spinner">
       <div></div>
     </div>
@@ -232,6 +233,16 @@ const route = Astro.url.pathname;
           filter: invert(100%);
           transform: scale(1.4);
         }
+      }
+
+      #info-cont:has(.info-shown) + a {
+        color: black;
+        box-shadow:
+          0 0 15px inset white,
+          0 0 15px white,
+          0 0 30px white;
+        background-color: white;
+        pointer-events: none;
       }
 
       .spinner {

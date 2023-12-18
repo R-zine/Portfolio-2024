@@ -5,10 +5,13 @@ let message = "";
 if (currentPage === "/")
   message =
     "This page is written in React and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. ";
+
+if (currentPage === "/stack")
+  message = "This page is written in Vue utilizing the Compositions API.";
 ---
 
 <div id="info-cont" style="pointer-events: auto;">
-  <div>
+  <div class="info-shown">
     <a
       hx-get="remove-info"
       hx-target="#info-cont"
