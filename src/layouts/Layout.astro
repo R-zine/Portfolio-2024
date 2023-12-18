@@ -25,7 +25,9 @@ const route = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/logo.png" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <script is:inline src={"/htmx.js"}></script>
+    <script>
+      import "htmx.org";
+    </script>
     <ViewTransitions />
   </head>
   <body>
