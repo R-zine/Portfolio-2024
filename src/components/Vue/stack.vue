@@ -27,6 +27,7 @@ onMounted(() => {
 
 <template>
   <div
+    class="grid"
     :style="`--outer-icon-number: ${outerIconNumber}; --tan: ${+tan.toFixed(
       2
     )}`"
@@ -39,8 +40,8 @@ onMounted(() => {
   </div>
 </template>
 
-<style>
-div {
+<style scoped>
+.grid {
   --img-size: 6vh;
   --spacing: 0.5; /* space between images in image sizes */
   --radius: calc(0.5 * (1 + var(--spacing)) * var(--img-size) / var(--tan));
@@ -48,17 +49,16 @@ div {
   position: relative;
   width: var(--cont-size);
   height: var(--cont-size);
-}
-
-div > div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: calc(-0.5 * var(--img-size));
-  width: var(--img-size);
-  height: var(--img-size);
-  --az: calc(var(--i) * 1turn / var(--outer-icon-number));
-  transform: rotate(var(--az)) translate(var(--radius))
-    rotate(calc(-1 * var(--az)));
+  & > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: calc(-0.5 * var(--img-size));
+    width: var(--img-size);
+    height: var(--img-size);
+    --az: calc(var(--i) * 1turn / var(--outer-icon-number));
+    transform: rotate(var(--az)) translate(var(--radius))
+      rotate(calc(-1 * var(--az)));
+  }
 }
 </style>

@@ -57,7 +57,8 @@ const route = Astro.url.pathname;
         <slot />
       </div>
     </main>
-    <div id="info-cont"></div>
+    <div id="info-cont" style={`--pos: ${route === "/stack" ? "0" : "50%"}`}>
+    </div>
     <InfoButton route={route} />
     <div class="spinner">
       <div></div>
