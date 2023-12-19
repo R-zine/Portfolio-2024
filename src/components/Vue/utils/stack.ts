@@ -1,4 +1,4 @@
-class Tech {
+export class Tech {
   name: string;
   url: string;
   year: number;
