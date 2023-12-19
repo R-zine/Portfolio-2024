@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import IconButton from "./components/IconButton.vue";
+import ReturnButton from "./components/ReturnButton.vue";
 import { Tech, TechArray } from "./utils/stack";
+import gsap from "gsap";
 
 // reactive state
 const isLoaded = ref(false);
 const hovered = ref("Hover an icon");
 const selected = ref<Tech | null>(null);
 const isDetails = ref(false);
+const isBack = ref(false);
+
+const imgRef = ref(null);
+const titleRef = ref(null);
+const yearRef = ref(null);
+const descriptionRef = ref(null);
+const returnRef = ref(null);
 
 // functions that mutate state and trigger updates
 
-const iconNumber = TechArray.length;
+const iconNumber = TechArray?.length ?? 0;
 const isMid = 0; /* 0 if there's no item in the middle, 1 otherwise */
 const outerIconNumber = iconNumber - isMid; /* how many are ON the circle */
 let tan = Math.tan(
@@ -33,6 +42,27 @@ watch(hovered, async (newHovered) => {
 
 watch(selected, async (newSelected) => {
   if (newSelected) setTimeout(() => (isDetails.value = true), 1500);
+});
+
+watch(isBack, async (newValue) => {
+  if (newValue) {
+    setTimeout(() => {
+      isDetails.value = false;
+      selected.value = null;
+      isBack.value = false;
+    }, 800);
+  }
+});
+
+watch(titleRef, async (ref) => {
+  if (ref) {
+    const tl = gsap.timeline();
+
+    tl.from(imgRef.value, { opacity: 0 })
+      .from(titleRef.value, { opacity: 0 })
+      .from(yearRef.value, { opacity: 0 })
+      .from(descriptionRef.value, { opacity: 0 });
+  }
 });
 </script>
 
@@ -56,19 +86,27 @@ watch(selected, async (newSelected) => {
     </div>
     <div :class="{ eye: true, white: selected?.name }">{{ hovered }}</div>
   </div>
-  <div v-if="isDetails" class="details-cont">
-    <div>
-      <img :src="selected?.url" />
-      <div class="title">
-        {{ selected?.name }}
+  <div v-if="isDetails" :class="{ 'details-cont': true, fade: isBack }">
+    <div class="header-cont">
+      <div class="img-cont" ref="imgRef">
+        <img :src="selected?.url" />
+      </div>
+      <div class="header">
+        <div class="title" ref="titleRef">
+          {{ selected?.name }}
+        </div>
+        <div class="year" ref="yearRef">
+          Experience since:
+          <span>
+            {{ selected?.year }}
+          </span>
+        </div>
       </div>
     </div>
-    <div>
-      {{ selected?.year }}
-    </div>
-    <div>
+    <div class="description" ref="descriptionRef">
       {{ selected?.description }}
     </div>
+    <ReturnButton @click="isBack = true" ref="returnRef" />
   </div>
 </template>
 
@@ -124,18 +162,68 @@ watch(selected, async (newSelected) => {
 .details-cont {
   z-index: 2000;
   color: black;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  transition: 800ms opacity;
 
   & > div {
     display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
   }
 
-  img {
-    max-width: 10vh;
+  .img-cont {
+    width: 12vh;
+    height: 12vh;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & > img {
+      width: 60%;
+      height: 60%;
+    }
+  }
+
+  .header-cont {
+    padding-bottom: 2vh;
+    border-bottom: 1px dotted black;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1vh;
+    border-bottom: 2px solid black;
+  }
+
+  .year {
+    font-size: 2vh;
+    & > span {
+      font-weight: bold;
+    }
   }
 
   .title {
-    font-size: 3vh;
+    font-size: 4vh;
     font-weight: bolder;
   }
+
+  .description {
+    margin: 2vh 0;
+    min-height: 20vh;
+  }
+}
+
+.fade {
+  opacity: 0;
 }
 </style>

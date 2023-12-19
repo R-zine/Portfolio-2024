@@ -10,7 +10,7 @@ const props = defineProps({
   </div>
 </template>
 
-<style>
+<style scoped>
 .icon-btn-cont {
   display: flex;
   align-items: center;
