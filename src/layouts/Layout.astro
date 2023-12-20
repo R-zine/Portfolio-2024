@@ -29,6 +29,7 @@ const route = Astro.url.pathname;
       import "htmx.org";
     </script>
     <ViewTransitions />
+    <link rel="stylesheet" href="./angular/styles-5INURTSO.css" />
   </head>
   <body>
     <header>
@@ -315,6 +316,20 @@ const route = Astro.url.pathname;
         }
         90% {
           background-image: url("../089.jpg");
+        }
+      }
+
+      app-root {
+        min-width: 100%;
+        min-height: 100%;
+        z-index: 3000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        & > .content {
+          min-width: 100%;
+          min-height: 100%;
         }
       }
     </style>
