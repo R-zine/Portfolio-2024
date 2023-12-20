@@ -11,4 +11,5 @@ export default defineConfig({
   output: "server",
   integrations: [htmx(), react(), vue(), svelte()],
   adapter: netlify(),
+  prefetch: true,
 });

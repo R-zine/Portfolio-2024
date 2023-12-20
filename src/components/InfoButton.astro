@@ -6,6 +6,7 @@ const { route } = Astro.props;
   hx-get=`/show-info?page=${route}`
   hx-target="#info-cont"
   hx-swap="outerHTML"
+  data-astro-prefetch
   class="info-btn button">Info</a
 >
 <style>
