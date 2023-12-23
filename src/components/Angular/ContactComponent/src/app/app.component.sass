@@ -1,0 +1,93 @@
+@mixin flex()
+    display: flex
+    justify-content: space-evenly
+    align-items: center
+
+$perspective: 10.5px
+
+.content 
+    @include flex
+    background-color: black
+    color: white
+    height: 100vh
+
+    & > div
+        width: 0
+        background-color: white
+        height: 50%
+        border: 2px solid white
+        position: relative
+ 
+
+        :nth-child(1)
+            content: ""
+            position: absolute
+            width: 10px
+            height: 7px
+            left: 20px
+            top: 25%
+            background-color: white
+            box-shadow: 0 0 5px 5px white
+            transform: perspective($perspective) rotateY(-45deg)
+
+        :nth-child(2)
+            content: ""
+            position: absolute
+            width: 10px
+            height: 7px
+            left: 20px
+            bottom: 25%
+            background-color: white
+            box-shadow: 0 0 5px 5px white
+            transform: perspective($perspective) rotateY(-45deg)
+
+        :nth-child(3)
+            content: ""
+            position: absolute
+            width: 10px
+            height: 7px
+            left: -30px
+            top: 25%
+            background-color: white
+            box-shadow: 0 0 5px 5px white
+            transform: perspective($perspective) rotateY(45deg)
+
+        :nth-child(4)
+            content: ""
+            position: absolute
+            width: 10px
+            height: 7px
+            left: -30px
+            bottom: 25%
+            background-color: white
+            box-shadow: 0 0 5px 5px white
+            transform: perspective($perspective) rotateY(45deg)
+
+    .form
+        & > div 
+            @include flex
+            gap: 2vh
+
+            & > div
+                border: 1px solid white
+                border-radius: 50%
+                width: 1.2vh
+                height: 1.2vh
+            
+            & > input
+                background-color: black
+                border: 2px solid white
+                border-radius: 5px
+                height: 3vh
+                width: 15vw
+                text-align: center
+                font-size: 1.5vh
+                color: white
+                transition: 500ms
+
+                &::placeholder
+                   color: #ffffffcc
+                
+                &:focus-within
+                    box-shadow: 0 0 15px 2px white
+                    border-color: black
