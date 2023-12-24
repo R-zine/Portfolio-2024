@@ -13,6 +13,6 @@ export default defineConfig({
   adapter: netlify(),
   prefetch: true,
   redirects: {
-    "/route": "/contact",
+    "/contact/remove-info": "/remove-info",
   },
 });
