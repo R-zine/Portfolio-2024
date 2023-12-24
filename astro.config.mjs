@@ -12,4 +12,7 @@ export default defineConfig({
   integrations: [htmx(), react(), vue(), svelte()],
   adapter: netlify(),
   prefetch: true,
+  redirects: {
+    "/route": "/contact",
+  },
 });
