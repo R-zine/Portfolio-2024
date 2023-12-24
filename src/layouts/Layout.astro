@@ -47,7 +47,7 @@ const route = Astro.url.pathname;
         <MenuItem title="Stack" isActive={route === "/stack"} route="/stack" />
         <MenuItem
           title="Contact"
-          isActive={route === `/contact`}
+          isActive={route === `/contact` || route === "/contact/"}
           route=`/contact`
         />
       </ul>
