@@ -3,13 +3,27 @@
     justify-content: space-evenly
     align-items: center
 
+@mixin width()
+    min-width: 25%
+    max-width: 25%
+    width: 25%
+
 $perspective: 10.5px
+
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap')
+
+.faded
+    opacity: 0
 
 .content 
     @include flex
     background-color: black
     color: white
     height: 100vh
+    font-family: 'Poiret One', sans-serif
+    transition: opacity 1200ms
+    justify-content: center !important
+    gap: 10vw
 
     & > div
         width: 0
@@ -64,6 +78,11 @@ $perspective: 10.5px
             transform: perspective($perspective) rotateY(45deg)
 
     .form
+        @include width
+        @include flex
+        flex-direction: column
+        gap: 3vh
+
         & > div 
             @include flex
             gap: 2vh
@@ -73,8 +92,9 @@ $perspective: 10.5px
                 border-radius: 50%
                 width: 1.2vh
                 height: 1.2vh
+                transition: 900ms
             
-            & > input
+            & > input, & > textarea
                 background-color: black
                 border: 2px solid white
                 border-radius: 5px
@@ -84,6 +104,7 @@ $perspective: 10.5px
                 font-size: 1.5vh
                 color: white
                 transition: 500ms
+                font-family: 'Poiret One', sans-serif
 
                 &::placeholder
                    color: #ffffffcc
@@ -91,3 +112,72 @@ $perspective: 10.5px
                 &:focus-within
                     box-shadow: 0 0 15px 2px white
                     border-color: black
+
+                &:focus-within::placeholder
+                    opacity: 0
+                
+            & > textarea
+                height: 15vh
+
+.socials
+    @include flex
+    @include width
+    flex-direction: column
+    gap: 3vh
+
+.ng-button
+    @include flex
+    width: 5vh
+    height: 5vh
+    border: 2px solid white
+    border-radius: 50%
+    transition: box-shadow 400ms, background-color 1200ms
+    
+    & > svg
+        filter: invert(100%)
+        width: 60%
+        height: 60%
+        transition: 1400ms
+
+    
+    &:hover
+        box-shadow: 0 0 15px inset white, 0 0 15px white, 0 0 30px white
+        background-color: white
+
+        & > svg 
+            filter: invert(0)
+
+
+.send-btn
+    @include flex
+    width: 15vh !important
+    border-radius: 0 !important
+    height: 3vh !important
+    width: 15vw !important
+    border-width: 2px !important
+    border-radius: 5px !important
+    transition: box-shadow 400ms, background-color 1200ms, color 1400ms, opacity 500ms
+
+    &:hover
+        box-shadow: 0 0 15px inset white, 0 0 15px white, 0 0 30px white
+        background-color: white
+        color: black
+
+.disabled
+    pointer-events: none
+    opacity: 0.5
+
+.submit-active
+    box-shadow: 0 0 15px inset white, 0 0 15px white, 0 0 30px white
+    background-color: white
+
+.sent
+    @include flex
+    @include width
+    text-align: center
+    & > div
+        border: 2px solid white
+        border-radius: 50%
+        width: 20vh
+        height: 20vh
+        @include flex
