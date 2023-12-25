@@ -14,5 +14,6 @@ export default defineConfig({
   prefetch: true,
   redirects: {
     "/contact/remove-info": "/remove-info",
+    "/route": "/contact",
   },
 });
