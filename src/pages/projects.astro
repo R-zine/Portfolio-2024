@@ -3,12 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import SvelteProjects from "../components/Svelte/Projects.svelte";
 ---
 
-<Layout title="Ivan Radev - Frontend Developer Portfolio - Home">
-  <SvelteProjects client:only="svelte" />
+<Layout title="Ivan Radev - Creative Developer Portfolio - Projects">
+  <SvelteProjects client:load />
 </Layout>
 
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
+<style></style>
