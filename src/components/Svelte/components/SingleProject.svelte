@@ -14,6 +14,10 @@ export let site: string;
 export let index: number;
 export let currentIndex: number;
 
+let stage1 = false,
+    stage2 = false,
+    stage3 = false
+
 const openLink = (link: string) => window.open(link, "_blank")
 </script>
 
@@ -22,38 +26,48 @@ const openLink = (link: string) => window.open(link, "_blank")
     if(detail.inView) currentIndex = index;
     }}>
 
-    <div class="project-img" style="background: url({preview}); " />
-    <div >
-        <div class="title">
+    <div class="project-img" class:grayscale={stage2 || stage3} style="background: url({preview}); " />
+    <div use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
+    on:inview_change={({ detail }) => {
+    stage1 = detail.inView;
+    }}>
+    
+        <div class="title" class:hidden={!stage1}>
             Description:
         </div>
 
-        <div class="body">
+        <div class="body" class:hidden={!stage1}>
             {description}
         </div>
-        <hr />
+        <hr  class:hidden={!stage1} />
     </div>
 
-    <div>
-        <div class="title">Tech used:</div>
-        <div class="body-tech">
+    <div use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
+    on:inview_change={({ detail }) => {
+    stage2 = detail.inView;
+    }}>
+        <div class="title"  class:hidden={!stage2}>Tech used:</div>
+        <div class="body-tech" class:hidden={!stage2}>
             {#each tech as t}
             <div class="tech">
                 {t}
             </div>
             {/each}
         </div>
-        <hr />
+        <hr class:hidden={!stage2} />
     </div>
-    <div>
-        <div class="title">Links:</div>
-        <div class="links">
+    <div use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
+    on:inview_change={({ detail }) => {
+    stage3 = detail.inView;
+    }}>
+        <div class="title" class:hidden={!stage3}>Links:</div>
+        <div class="links" class:hidden={!stage3}>
             <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
             <div class="button" on:click={() => openLink(source)}>Source</div>
             <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
             <div class="button" on:click={() => openLink(site)}>Website</div>
         </div>
-        <hr />
+        <hr class:hidden={!stage3} />
     </div>
 
     <div class="bottom-pad" />
@@ -64,6 +78,14 @@ const openLink = (link: string) => window.open(link, "_blank")
     min-height: 100vh;
     text-align: center;
     position: relative !important;
+
+    .hidden {
+        opacity: 0;
+    }
+
+    .grayscale {
+        filter: grayscale(100%) opacity(0.5);
+    }
 
     &>div {
         z-index: 2001 !important;
@@ -79,11 +101,13 @@ const openLink = (link: string) => window.open(link, "_blank")
             color: black;
             margin-bottom: 2vh;
             font-weight: bolder;
+            transition: 300ms;
         }
 
         &>.body {
             padding: 1vh 15%;
             background-color: black;
+            transition: 600ms;
 
         }
 
@@ -94,6 +118,7 @@ const openLink = (link: string) => window.open(link, "_blank")
             justify-content: center;
             gap: 2vh;
             margin-bottom: 5vh;
+            transition: 600ms;
 
             &>.tech {
                 border: 2px solid white;
@@ -112,6 +137,7 @@ const openLink = (link: string) => window.open(link, "_blank")
             display: flex;
             justify-content: space-evenly;
             align-items: center;
+            transition: 600ms;
 
             &>div {
                 width: 25%;
@@ -133,6 +159,7 @@ const openLink = (link: string) => window.open(link, "_blank")
         &>hr {
             width: 50%;
             margin-bottom: 5vh;
+            transition: 900ms;
         }
     }
 
@@ -146,6 +173,7 @@ const openLink = (link: string) => window.open(link, "_blank")
         background-size: contain !important;
         background-position: center !important;
         z-index: 1 !important;
+        transition: 900ms ease-out;
 
     }
 

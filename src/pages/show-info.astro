@@ -3,8 +3,11 @@ const currentPage = Astro.url.searchParams.get("page");
 
 let message = "";
 if (currentPage === "/")
+  message = `This page is written in React and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. The Info button and the mobile menu functionalities are built with HTMX.`;
+
+if (currentPage === "/projects")
   message =
-    "This page is written in React and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. ";
+    "This page is written in Svelte and utilizes svelte-inview and the built-in transitions API.";
 
 if (currentPage === "/stack")
   message =

@@ -31,7 +31,7 @@ export const projects = [
     ],
     "portfolio2023",
     "https://github.com/R-zine/Portfolio-2023",
-    ""
+    "https://ivanradev2023.netlify.app/"
   ),
   new Project(
     "This is my dev portfolio from 2021. The site you are currently viewing was envisioned as a continuation of the old portfolio with multiple improvements. Albeit much simpler, I am happy how it turned out and it now serves as a fallback for devices with low processing power and/or small screens.",

@@ -9,7 +9,9 @@ import SingleProject from "./components/SingleProject.svelte";
 import {
     inview
 } from 'svelte-inview';
-import { fade } from 'svelte/transition';
+import {
+    fade
+} from 'svelte/transition';
 
 let container: HTMLDivElement, percentage: number, currentIndex: number = -3;
 
@@ -21,8 +23,6 @@ onMount(() => {
         currentIndex = -1
     }, 600);
 })
-
-
 </script>
 
 <div class="projects" style="--percent: {percentage}">
@@ -35,48 +35,63 @@ onMount(() => {
             }}>
             {#if currentIndex === -1}
             <div transition:fade>
-                Scroll down for more
+                Scroll down
             </div>
             <div class="svg-cont"  transition:fade={{delay: 600}}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
                     <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
                         </svg>
                         </div>
-                        {/if}
-                        </div>
 
-                        {#each projects as project, i}
-                        <SingleProject {...project} index={i} bind:currentIndex />
-                        {/each}
-                        <div data-id="-2" style="display: flex; align-items: center; justify-content: center;" use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
-                            on:inview_change={({ detail }) => {
-                            if(detail.inView) currentIndex = -2;
-                            }}>
+                        {:else}
+                        <div class="hidden">
+                            Scroll down for more
+                        </div>
+                        <div class="svg-cont hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                                <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
+                                    </svg>
+                                    </div>
+                                    {/if}
+                                    </div>
 
-                            <div class="question">?</div>
-                        </div>
-                        <div style="min-height: 35vh;" />
-                        <div class="bottom-curtain" />
-                        </div>
-                        <div class="navigation">
-                            <div>
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === -1} on:click={() => {currentIndex = -1
-                                    document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView({ behavior: "smooth" })
-                                    }} />
-                                {#each projects as _project, i}
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === i} on:click={() => {currentIndex = i
-                                    document.querySelector(`[data-id="${i}"]`)?.scrollIntoView({ behavior: "smooth" })
-                                    }} />
-                                {/each}
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === -2} on:click={() => {currentIndex = -2
-                                    document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView({ behavior: "smooth" })
-                                    }} />
-                            </div>
-                        </div>
-                        </div>
+                                    {#each projects as project, i}
+                                    <SingleProject {...project} index={i} bind:currentIndex />
+                                    {/each}
+                                    <div data-id="-2" style="display: flex; align-items: center; justify-content: center;" use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
+                                        on:inview_change={({ detail }) => {
+                                        if(detail.inView) currentIndex = -2;
+                                        }}>
+                                        {#if currentIndex === -2}
+                                        <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                        <div on:click={() => window.open("https://github.com/R-zine/Portfolio-2024", "_blank")} transition:fade={{delay: 300}} class="question button">?</div>
+                                        {:else}
+                                        <div class="question hidden">?</div>
+                                        {/if}
+                                    </div>
+                                    <div style="min-height: 35vh;" />
+                                    <div class="bottom-curtain" />
+                                    </div>
+
+                                    <div class="navigation">
+                                        <div>
+                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                            <div class="button"  class:navigation-active={currentIndex === -1} on:click={() => {currentIndex = -1
+                                                document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView()
+                                                }} />
+                                            {#each projects as _project, i}
+                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                            <div class="button"  class:navigation-active={currentIndex === i} on:click={() => {currentIndex = i
+                                                document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
+                                                }} />
+                                            {/each}
+                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                            <div class="button"  class:navigation-active={currentIndex === -2} on:click={() => {currentIndex = -2
+                                                document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
+                                                }} />
+                                        </div>
+                                    </div>
+                                    </div>
 
 <style lang="scss">
 .projects {
@@ -91,6 +106,10 @@ onMount(() => {
     background:
         radial-gradient(closest-side, white 79%, transparent 80% 100%),
         conic-gradient(white calc(var(--percent) * 1%), black 0);
+
+    .hidden {
+        opacity: 0;
+    }
 
     &>.scroll-cont {
         -ms-overflow-style: none;
@@ -138,6 +157,7 @@ onMount(() => {
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: pulse 1.5s infinite;
 
             &>svg {
                 filter: invert(100%);
@@ -160,6 +180,14 @@ onMount(() => {
         justify-self: center;
         z-index: 3000;
         position: relative !important;
+        transition: background-color 600ms, color 900ms, box-shadow 1300ms;
+        transition-timing-function: ease-out;
+
+        &:hover {
+            background-color: white;
+            color: black;
+            box-shadow: 0 0 25px 10px white;
+        }
 
     }
 
@@ -202,5 +230,20 @@ onMount(() => {
         }
     }
 
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    86% {
+        opacity: 0.6;
+        box-shadow: 0 0 10px 1px white;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 </style>
