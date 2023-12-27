@@ -18,7 +18,7 @@ export const Home = () => {
 
   const spotlightRef = useRef<any>(null);
 
-  const displacementMap = useLoader(TextureLoader, "287.jpg");
+  const displacementMap = useLoader(TextureLoader, "287.webp");
 
   useLayoutEffect(() => {
     const spinner = document.querySelector(".spinner");
