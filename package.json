@@ -7,14 +7,14 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:netlify": "npm i @esbuild/linux-x64 && npm run astro build"
   },
   "dependencies": {
     "@astrojs/netlify": "^3.1.1",
     "@astrojs/react": "^3.0.3",
     "@astrojs/svelte": "^4.0.3",
     "@astrojs/vue": "^3.0.1",
-    "@esbuild/linux-x64": "^0.19.10",
     "@react-three/drei": "^9.88.9",
     "@react-three/fiber": "^8.15.9",
     "@react-three/postprocessing": "^2.15.11",

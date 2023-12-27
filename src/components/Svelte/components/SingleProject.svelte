@@ -2,6 +2,9 @@
 import {
     inview
 } from 'svelte-inview';
+import {
+    fade
+} from 'svelte/transition';
 
 export let description: string;
 export let tech: string[];
@@ -15,9 +18,10 @@ const openLink = (link: string) => window.open(link, "_blank")
 </script>
 
 <div class="single-project" data-id={index} use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
-on:inview_change={({ detail }) => {
-if(detail.inView) currentIndex = index;
-}}>
+    on:inview_change={({ detail }) => {
+    if(detail.inView) currentIndex = index;
+    }}>
+
     <div class="project-img" style="background: url({preview}); " />
     <div >
         <div class="title">
@@ -51,9 +55,9 @@ if(detail.inView) currentIndex = index;
         </div>
         <hr />
     </div>
+
     <div class="bottom-pad" />
 </div>
-
 
 <style lang="scss">
 .single-project {

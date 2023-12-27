@@ -9,12 +9,17 @@ import SingleProject from "./components/SingleProject.svelte";
 import {
     inview
 } from 'svelte-inview';
+import { fade } from 'svelte/transition';
 
-let container: HTMLDivElement, percentage: number, currentIndex: number;
+let container: HTMLDivElement, percentage: number, currentIndex: number = -3;
 
 onMount(() => {
     const spinner = document.querySelector(".spinner");
     if (spinner)(spinner as HTMLElement).style.display = "none";
+
+    setTimeout(() => {
+        currentIndex = -1
+    }, 600);
 })
 
 
@@ -24,19 +29,20 @@ onMount(() => {
     <div class="scroll-cont" bind:this={container} on:scroll={()=> percentage = (100 * (container.scrollTop / (container.scrollHeight - container.clientHeight)))} >
 
         <div data-id="-1" class="intro"
-
             use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
             on:inview_change={({ detail }) => {
             if(detail.inView) currentIndex = -1;
             }}>
-            <div>
+            {#if currentIndex === -1}
+            <div transition:fade>
                 Scroll down for more
             </div>
-            <div class="svg-cont">
+            <div class="svg-cont"  transition:fade={{delay: 600}}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
                     <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
                         </svg>
                         </div>
+                        {/if}
                         </div>
 
                         {#each projects as project, i}
