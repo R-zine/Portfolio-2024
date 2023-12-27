@@ -57,6 +57,12 @@ onMounted(() => {
   }
 }
 
+@media only screen and (max-width: 1700px) {
+  .return-btn-cont > div {
+    display: none;
+  }
+}
+
 .hidden {
   opacity: 0;
 }

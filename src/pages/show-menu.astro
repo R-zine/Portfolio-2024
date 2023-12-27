@@ -1,0 +1,84 @@
+---
+const currentPage = Astro.url.searchParams.get("page");
+---
+
+<div class="menu-shown" style="text-align: center;">
+  <a
+    hx-get="./remove-menu"
+    hx-target="#mobile-menu"
+    hx-swap="outerHTML"
+    data-astro-prefetch
+    style="position: fixed; top: 4px; left: 4px; border: 1px solid white; border-radius: 50%; padding: 1.6rem; width: 0.3vh; height: 0.3vh; background-color: white;
+    box-shadow: 0 0 15px white; display: flex; justify-content: center; align-items: center;"
+    class="menu-close-btn button"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="16"
+      width="12"
+      viewBox="0 0 384 512"
+      ><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
+      <path
+        d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+      ></path></svg
+    >
+  </a>
+
+  <div style="margin-top: 10vh;">
+    <div style="font-size: larger; font-weight: bolder;">Ivan Radev</div>
+    <div>Creative Developer</div>
+  </div>
+
+  <div style="margin-top: 10vh;">
+    <hr />
+    <a
+      href="/"
+      style=`display: flex; padding: 1vh; align-items: center; justify-content: start; gap: 5vw; padding-left: 10vw;`
+    >
+      <div
+        style=`min-width: 1.5vh; min-height: 1.5vh; maxn-width: 1.5vh; max-height: 1.5vh; border: 1px solid white; border-radius: 50%; ${currentPage === "/" ? "background-color: white; box-shadow: 0 0 8px 3px white" : ""}`
+      >
+      </div>
+      <div style="color: white;">Home</div>
+    </a>
+    <hr />
+    <a
+      href="/projects"
+      style=`display: flex; padding: 1vh; align-items: center; justify-content: start; gap: 5vw; padding-left: 10vw;`
+    >
+      <div
+        style=`min-width: 1.5vh; min-height: 1.5vh; maxn-width: 1.5vh; max-height: 1.5vh; border: 1px solid white; border-radius: 50%; ${currentPage === "/projects" ? "background-color: white; box-shadow: 0 0 8px 3px white" : ""}`
+      >
+      </div>
+      <div style="color: white;">Projects</div>
+    </a>
+    <hr />
+    <a
+      href="/stack"
+      style=`display: flex; padding: 1vh; align-items: center; justify-content: start; gap: 5vw; padding-left: 10vw;`
+    >
+      <div
+        style=`min-width: 1.5vh; min-height: 1.5vh; maxn-width: 1.5vh; max-height: 1.5vh; border: 1px solid white; border-radius: 50%; ${currentPage === "/stack" ? "background-color: white; box-shadow: 0 0 8px 3px white" : ""}`
+      >
+      </div>
+      <div style="color: white;">Stack</div>
+    </a>
+    <hr />
+    <a
+      href="/contact"
+      style=`display: flex; padding: 1vh; align-items: center; justify-content: start; gap: 5vw; padding-left: 10vw;`
+    >
+      <div
+        style=`min-width: 1.5vh; min-height: 1.5vh; maxn-width: 1.5vh; max-height: 1.5vh; border: 1px solid white; border-radius: 50%; ${currentPage === "/contact" || currentPage === "/contact/" ? "background-color: white; box-shadow: 0 0 8px 3px white" : ""}`
+      >
+      </div>
+      <div style="color: white;">Contact</div>
+    </a>
+    <hr />
+  </div>
+  <div
+    style="position: fixed; bottom: 8px; left: 0; text-align: center; width: 100%; font-size: small;"
+  >
+    &copy; {new Date().getFullYear()}, Ivan Radev All right reserved
+  </div>
+</div>

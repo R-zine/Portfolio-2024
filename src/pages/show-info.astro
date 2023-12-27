@@ -3,15 +3,15 @@ const currentPage = Astro.url.searchParams.get("page");
 
 let message = "";
 if (currentPage === "/")
-  message = `This page is written in React and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. The Info button and the mobile menu functionalities are built with HTMX.`;
+  message = `This page is written in React 18 and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. The Info button and the mobile menu functionalities are built with HTMX.`;
 
 if (currentPage === "/projects")
   message =
-    "This page is written in Svelte and utilizes svelte-inview and the built-in transitions API.";
+    "This page is written in Svelte 4 and utilizes svelte-inview and the built-in transitions API.";
 
 if (currentPage === "/stack")
   message =
-    "This page is written in Vue utilizing the Compositions API. The animations are powered by GSAP.";
+    "This page is written in Vue 3 utilizing the Compositions API. The animations are powered by GSAP.";
 
 if (currentPage === "/contact" || currentPage === "/contact/")
   message =

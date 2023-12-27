@@ -53,6 +53,27 @@ const route = Astro.url.pathname;
       </ul>
     </nav>
 
+    <a
+      class="mobile-menu-btn button"
+      hx-get=`/show-menu?page=${route}`
+      hx-target="#mobile-menu"
+      hx-swap="innerHTML"
+      data-astro-prefetch
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="16"
+        width="14"
+        viewBox="0 0 448 512"
+      >
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
+        ></path></svg
+      >
+    </a>
+
+    <div id="mobile-menu"></div>
+
     <main>
       <div id="lightring">
         <slot />
@@ -64,6 +85,7 @@ const route = Astro.url.pathname;
     <div class="spinner">
       <div></div>
     </div>
+
     <style is:global>
       @import url("https://fonts.googleapis.com/css2?family=Poiret+One&display=swap");
 
@@ -83,6 +105,10 @@ const route = Astro.url.pathname;
       .button:hover {
         cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 512 512'%3E%3C!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --%3E%3Cpath fill='%23BBB' d='M222.7 32.15C227.7 49.08 218.1 66.9 201.1 71.94C121.8 95.55 64 169.1 64 255.1C64 362 149.1 447.1 256 447.1C362 447.1 448 362 448 255.1C448 169.1 390.2 95.55 310.9 71.94C293.9 66.9 284.3 49.08 289.3 32.15C294.4 15.21 312.2 5.562 329.1 10.6C434.9 42.07 512 139.1 512 255.1C512 397.4 397.4 511.1 256 511.1C114.6 511.1 0 397.4 0 255.1C0 139.1 77.15 42.07 182.9 10.6C199.8 5.562 217.6 15.21 222.7 32.15V32.15z'/%3E%3C/svg%3E"),
           default;
+      }
+
+      a {
+        text-decoration: none;
       }
 
       header {
@@ -323,6 +349,45 @@ const route = Astro.url.pathname;
         }
       }
 
+      .mobile-menu-btn {
+        position: fixed;
+        top: 4px;
+        left: 4px;
+        padding: 1.6rem;
+        width: 0.3vh;
+        height: 0.3vh;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid white;
+        border-radius: 50%;
+        font-size: 1.2rem;
+
+        & > svg {
+          filter: invert(100%);
+          transform: scale(6) !important;
+        }
+      }
+
+      #mobile-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-width: 100vw;
+        min-height: 100vh;
+        background-color: black;
+        z-index: 5000;
+        display: none;
+
+        .menu-close-btn > svg {
+          transform: scale(6) !important;
+        }
+      }
+
+      #mobile-menu:has(.menu-shown) {
+        display: block;
+      }
+
       app-root {
         min-width: 100%;
         min-height: 100%;
@@ -334,6 +399,76 @@ const route = Astro.url.pathname;
         & > .content {
           min-width: 100%;
           min-height: 100%;
+        }
+      }
+
+      @media only screen and (max-width: 1700px) {
+        header,
+        nav {
+          display: none !important;
+        }
+
+        main,
+        #info-cont,
+        .spinner {
+          left: calc(50vw - 75vh);
+          transform: scale(65%);
+        }
+
+        canvas {
+          width: 100% !important;
+          height: 100% !important;
+        }
+
+        .body {
+          padding-left: 30% !important;
+          padding-right: 30% !important;
+        }
+
+        .links {
+          justify-content: center !important;
+          gap: 10px;
+        }
+
+        .grid {
+          transform: scale(0.9);
+        }
+
+        .eye {
+          color: #00000000 !important;
+        }
+
+        .content {
+          flex-direction: column-reverse;
+          gap: 10vh !important;
+
+          & > div {
+            display: none;
+          }
+
+          input,
+          textarea {
+            width: 280px !important;
+          }
+
+          & > section {
+            flex-direction: row !important;
+          }
+        }
+
+        .info-btn {
+          top: 4px !important;
+          left: calc(100vw - 3.2rem - 8px) !important;
+        }
+
+        #info-cont:has(.info-shown) + a {
+          & > div > svg {
+            filter: invert(0) !important;
+          }
+        }
+
+        .mobile-menu-btn {
+          display: flex;
         }
       }
     </style>

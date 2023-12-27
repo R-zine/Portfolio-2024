@@ -128,7 +128,7 @@ export const Home = () => {
             anchorY={3}
             castShadow
           >
-            The Info button is powered by HTMX.
+            Press the Info button for more.
           </Text>
         </Canvas>
       </Suspense>
