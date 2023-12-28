@@ -447,9 +447,13 @@ const route = Astro.url.pathname;
             display: none;
           }
 
+          .form {
+            min-width: 100% !important;
+          }
+
           input,
           textarea {
-            width: 280px !important;
+            min-width: 60vw !important;
           }
 
           & > section {
