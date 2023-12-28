@@ -1,6 +1,6 @@
 # Welcome to my 2024 Developer Portfolio repository!
 
-[[View Live Website](https://ivanradev.site)]
+[View Live Website](https://ivanradev.site)
 
 ## Installation and running
 
@@ -22,4 +22,4 @@ This project is made with Astro with React, Vue, Svelte and HTMX integrations. T
 
 ## Contact
 
-Feel free to message me here or on [[linkedIn](https://www.linkedin.com/in/ivan-radev/)]
+Feel free to message me here or on [linkedIn](https://www.linkedin.com/in/ivan-radev/)
