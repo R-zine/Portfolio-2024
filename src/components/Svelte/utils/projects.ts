@@ -21,11 +21,12 @@ class Project {
 
 export const projects = [
   new Project(
-    "Personal portfolio website 2023",
+    "This is my previous portfolio website made in 2023. It utilizes React Fiber / Drei to create a fully 3D web-experience. Global state is managed through Redux, while physics are done with Rapier. Motion is powered by GSAP. Due to it's very experimental nature, it is only available on PC.",
     [
       "React / Vite",
       "React Three Fiber / Drei",
       "React Rapier (3D engine)",
+      "Redux",
       "GSAP",
       "Emotion / Styled",
     ],
@@ -34,14 +35,14 @@ export const projects = [
     "https://ivanradev2023.netlify.app/"
   ),
   new Project(
-    "This is my dev portfolio from 2021. The site you are currently viewing was envisioned as a continuation of the old portfolio with multiple improvements. Albeit much simpler, I am happy how it turned out and it now serves as a fallback for devices with low processing power and/or small screens.",
+    "This is my dev portfolio from 2021. The site you are currently viewing was envisioned as a continuation of the old portfolio with multiple improvements. Albeit much simpler, I am happy how it turned out.",
     ["React", "React-three-fiber (for the Tech tab)", "Blender", "GSAP"],
     "port2021",
     "https://github.com/R-zine/PortfolioSite2021/",
     "https://ivanradev2021.netlify.app/"
   ),
   new Project(
-    "A block-stacking 3D game with simulated physics. Written in React and the React-three-fiber ecosystem.",
+    "A block-stacking 3D game with simulated physics through CannonJS. Written in React and the React-three-fiber ecosystem.",
     ["React", "React-three-fiber", "CannonJS physics engine", "GSAP"],
     "stacker",
     "https://github.com/R-zine/stackr",
@@ -55,7 +56,7 @@ export const projects = [
     "https://next-snake-taupe.vercel.app/"
   ),
   new Project(
-    "This is my personal traditional paintings' website. It is built on React/Vite and uses Wordpress as a backend. Animations are powered by eact Spring and GSAP.",
+    "This is my personal traditional paintings' website. It is built on React/Vite and uses Wordpress as a backend. Animations are powered by React Spring and GSAP.",
     [
       "React",
       "Redux Toolkit (state and query management)",

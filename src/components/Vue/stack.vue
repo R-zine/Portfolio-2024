@@ -220,6 +220,9 @@ watch(titleRef, async (ref) => {
   .description {
     margin: 2vh 0;
     min-height: 20vh;
+    width: 55%;
+    font-weight: bold;
+    font-size: 20px;
   }
 }
 
