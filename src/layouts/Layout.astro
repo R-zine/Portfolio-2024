@@ -472,6 +472,12 @@ const route = Astro.url.pathname;
           display: flex;
         }
       }
+
+      @media only screen and (max-width: 1000px) {
+        main {
+          animation: none;
+        }
+      }
     </style>
   </body>
 </html>

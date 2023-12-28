@@ -28,70 +28,60 @@ onMount(() => {
 <div class="projects" style="--percent: {percentage}">
     <div class="scroll-cont" bind:this={container} on:scroll={()=> percentage = (100 * (container.scrollTop / (container.scrollHeight - container.clientHeight)))} >
 
-        <div data-id="-1" class="intro"
+        <div data-id="-1" class="intro" class:hidden={currentIndex !== -1}
             use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
             on:inview_change={({ detail }) => {
             if(detail.inView) currentIndex = -1;
             }}>
-            {#if currentIndex === -1}
-            <div transition:fade>
+
+            <div >
                 Scroll down
             </div>
-            <div class="svg-cont"  transition:fade={{delay: 600}}>
+            <div class="svg-cont" class:hidden={currentIndex !== -1}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
                     <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
                         </svg>
                         </div>
 
-                        {:else}
-                        <div class="hidden">
-                            Scroll down for more
                         </div>
-                        <div class="svg-cont hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-                                <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
-                                    </svg>
-                                    </div>
-                                    {/if}
-                                    </div>
 
-                                    {#each projects as project, i}
-                                    <SingleProject {...project} index={i} bind:currentIndex />
-                                    {/each}
-                                    <div data-id="-2" style="display: flex; align-items: center; justify-content: center;" use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
-                                        on:inview_change={({ detail }) => {
-                                        if(detail.inView) currentIndex = -2;
-                                        }}>
-                                        {#if currentIndex === -2}
-                                        <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                        <div on:click={() => window.open("https://github.com/R-zine/Portfolio-2024", "_blank")} transition:fade={{delay: 300}} class="question button">?</div>
-                                        {:else}
-                                        <div class="question hidden">?</div>
-                                        {/if}
-                                    </div>
-                                    <div style="min-height: 35vh;" />
-                                    <div class="bottom-curtain" />
-                                    </div>
+                        {#each projects as project, i}
+                        <SingleProject {...project} index={i} bind:currentIndex />
+                        {/each}
+                        <div data-id="-2" style="display: flex; align-items: center; justify-content: center;" use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
+                            on:inview_change={({ detail }) => {
+                            if(detail.inView) currentIndex = -2;
+                            }}>
+                            {#if currentIndex === -2}
+                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                            <div on:click={() => window.open("https://github.com/R-zine/Portfolio-2024", "_blank")} transition:fade={{delay: 300}} class="question button">?</div>
+                            {:else}
+                            <div class="question hidden">?</div>
+                            {/if}
+                        </div>
+                        <div style="min-height: 35vh;" />
+                        <div class="bottom-curtain" />
+                        </div>
 
-                                    <div class="navigation">
-                                        <div>
-                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                            <div class="button"  class:navigation-active={currentIndex === -1} on:click={() => {currentIndex = -1
-                                                document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView()
-                                                }} />
-                                            {#each projects as _project, i}
-                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                            <div class="button"  class:navigation-active={currentIndex === i} on:click={() => {currentIndex = i
-                                                document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
-                                                }} />
-                                            {/each}
-                                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                            <div class="button"  class:navigation-active={currentIndex === -2} on:click={() => {currentIndex = -2
-                                                document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
-                                                }} />
-                                        </div>
-                                    </div>
-                                    </div>
+                        <div class="navigation">
+                            <div>
+                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                <div class="button"  class:navigation-active={currentIndex === -1} on:click={() => {currentIndex = -1
+                                    document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView()
+                                    }} />
+                                {#each projects as _project, i}
+                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                <div class="button"  class:navigation-active={currentIndex === i} on:click={() => {currentIndex = i
+                                    document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
+                                    }} />
+                                {/each}
+                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                <div class="button"  class:navigation-active={currentIndex === -2} on:click={() => {currentIndex = -2
+                                    document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
+                                    }} />
+                            </div>
+                        </div>
+                        </div>
 
 <style lang="scss">
 .projects {
@@ -148,6 +138,7 @@ onMount(() => {
         gap: 1.5vh;
         font-size: larger;
         font-weight: bolder;
+        transition: 700ms;
 
         .svg-cont {
             border: 1.5px solid white;
