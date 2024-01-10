@@ -9,6 +9,8 @@ import {
 } from "@react-three/postprocessing";
 import { BlendFunction } from "postprocessing";
 import font from "./font.ttf";
+import { Fallback } from "./components";
+import "./styles.css";
 
 const isMobile = (function () {
   let check = false;
@@ -66,122 +68,95 @@ export const Home = () => {
     }
   }, [isHovered]);
 
-  if (isMobile)
-    return (
+  if (isMobile) return <Fallback />;
+
+  return (
+    <>
       <div
+        className="home-container"
         style={{
-          fontSize: 24,
+          fontSize: 200,
           zIndex: 1000,
           color: "white",
           width: "100%",
           height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        <div style={{ width: "50%" }}>
-          <div style={{ marginBottom: "4vh" }}>Welcome.</div>
-          <div>I am Ivan Radev,</div>
-
-          <div style={{ marginBottom: "4vh" }}>
-            a creative, full-stack developer based in Bulgaria
-          </div>
-          <div style={{ marginBottom: "4vh" }}>
-            I weave visions into reality since 2007.
-          </div>
-          <div>This showcase website is made with Astro</div>
-          <div>+ React / Angular / Svelte / Vue / HTMX</div>
-          <div style={{ marginTop: "8vh", textAlign: "center" }}>
-            Press the Info button for more.
-          </div>
-        </div>
+        <Suspense fallback={null}>
+          <Canvas
+            shadows
+            gl={{ antialias: true }}
+            onMouseMove={(e) =>
+              setPos({
+                x: (e.clientX - window.innerWidth / 2) / 1000 - 0.5,
+                y: (e.clientY - window.innerHeight / 2) / 1000,
+              })
+            }
+          >
+            <EffectComposer>
+              <ChromaticAberration
+                blendFunction={BlendFunction.NORMAL} // blend mode
+                //@ts-ignore
+                offset={[pos.x / 500, -pos.y / 500]} // color offset
+              />
+            </EffectComposer>
+            <spotLight
+              ref={spotlightRef}
+              position={[pos.x, -pos.y, 2]}
+              intensity={50}
+              decay={4.5}
+              penumbra={1}
+              castShadow
+              shadow-mapSize-width={2048}
+              shadow-mapSize-height={2048}
+            />
+            <mesh position={[0, 0, -1.1]} receiveShadow>
+              <boxGeometry args={[10, 10, 1]} />
+              <meshStandardMaterial
+                bumpMap={displacementMap}
+                displacementMap={displacementMap}
+                metalnessMap={displacementMap}
+                roughness={0.5}
+                color="grey"
+              />
+            </mesh>
+            <Text
+              scale={0.4}
+              font={font}
+              fontSize={0.3}
+              outlineColor="white"
+              outlineWidth={0.005}
+              lineHeight={0.7}
+              color="white"
+              anchorX="center"
+              anchorY={-3}
+              castShadow
+            >
+              Welcome.&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;I am Ivan Radev,
+              &#10;&#13;a creative, full-stack developer based in
+              Bulgaria.&#10;&#13;&#10;&#13;I weave visions into reality since
+              2007. &#10;&#13;&#10;&#13;&#10;&#13;This showcase website is made
+              with Astro &#10;&#13;+ React / Angular / Svelte / Vue / HTMX
+            </Text>
+            <Text
+              onPointerEnter={() => setIsHovered(true)}
+              scale={0.4}
+              font={font}
+              fontSize={0.3}
+              outlineColor="white"
+              outlineWidth={0.005}
+              lineHeight={0.7}
+              color="white"
+              anchorX="center"
+              anchorY={3}
+              castShadow
+            >
+              Press the Info button for more.
+            </Text>
+          </Canvas>
+        </Suspense>
       </div>
-    );
-
-  return (
-    <div
-      style={{
-        fontSize: 200,
-        zIndex: 1000,
-        color: "white",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <Suspense fallback={null}>
-        <Canvas
-          shadows
-          gl={{ antialias: true }}
-          onMouseMove={(e) =>
-            setPos({
-              x: (e.clientX - window.innerWidth / 2) / 1000 - 0.5,
-              y: (e.clientY - window.innerHeight / 2) / 1000,
-            })
-          }
-        >
-          <EffectComposer>
-            <ChromaticAberration
-              blendFunction={BlendFunction.NORMAL} // blend mode
-              //@ts-ignore
-              offset={[pos.x / 500, -pos.y / 500]} // color offset
-            />
-          </EffectComposer>
-          <spotLight
-            ref={spotlightRef}
-            position={[pos.x, -pos.y, 2]}
-            intensity={50}
-            decay={4.5}
-            penumbra={1}
-            castShadow
-            shadow-mapSize-width={2048}
-            shadow-mapSize-height={2048}
-          />
-          <mesh position={[0, 0, -1.1]} receiveShadow>
-            <boxGeometry args={[10, 10, 1]} />
-            <meshStandardMaterial
-              bumpMap={displacementMap}
-              displacementMap={displacementMap}
-              metalnessMap={displacementMap}
-              roughness={0.5}
-              color="grey"
-            />
-          </mesh>
-          <Text
-            scale={0.4}
-            font={font}
-            fontSize={0.3}
-            outlineColor="white"
-            outlineWidth={0.005}
-            lineHeight={0.7}
-            color="white"
-            anchorX="center"
-            anchorY={-3}
-            castShadow
-          >
-            Welcome.&#10;&#13;&#10;&#13;&#10;&#13;&#10;&#13;I am Ivan Radev,
-            &#10;&#13;a creative, full-stack developer based in
-            Bulgaria.&#10;&#13;&#10;&#13;I weave visions into reality since
-            2007. &#10;&#13;&#10;&#13;&#10;&#13;This showcase website is made
-            with Astro &#10;&#13;+ React / Angular / Svelte / Vue / HTMX
-          </Text>
-          <Text
-            onPointerEnter={() => setIsHovered(true)}
-            scale={0.4}
-            font={font}
-            fontSize={0.3}
-            outlineColor="white"
-            outlineWidth={0.005}
-            lineHeight={0.7}
-            color="white"
-            anchorX="center"
-            anchorY={3}
-            castShadow
-          >
-            Press the Info button for more.
-          </Text>
-        </Canvas>
-      </Suspense>
-    </div>
+      <Fallback isFallback />
+    </>
   );
 };
