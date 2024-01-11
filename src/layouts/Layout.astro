@@ -389,6 +389,10 @@ const route = Astro.url.pathname;
         display: block;
       }
 
+      .home-container-fallback {
+        display: none !important;
+      }
+
       app-root {
         min-width: 100%;
         min-height: 100%;
@@ -414,6 +418,15 @@ const route = Astro.url.pathname;
         .spinner {
           left: calc(50vw - 75vh);
           transform: scale(65%);
+        }
+
+        .home-container-fallback {
+          display: flex !important;
+          font-size: 1.8em !important;
+        }
+
+        .home-container {
+          display: none;
         }
 
         canvas {

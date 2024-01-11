@@ -10,7 +10,6 @@ import {
 import { BlendFunction } from "postprocessing";
 import font from "./font.ttf";
 import { Fallback } from "./components";
-import "./styles.css";
 
 const isMobile = (function () {
   let check = false;
