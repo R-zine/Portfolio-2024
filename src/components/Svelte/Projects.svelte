@@ -67,21 +67,30 @@ onMount(() => {
                         <div class="navigation">
                             <div>
                                 <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === -1} on:click={() => {currentIndex = -1
+                                <div class="button"   on:click={() => {currentIndex = -1
                                     document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView()
-                                    }} />
-                                {#each projects as _project, i}
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === i} on:click={() => {currentIndex = i
-                                    document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
-                                    }} />
-                                {/each}
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"  class:navigation-active={currentIndex === -2} on:click={() => {currentIndex = -2
-                                    document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
-                                    }} />
+                                    }}>
+
+                                    <div class:navigation-active={currentIndex === -1}/>
+                                    </div>
+                                    {#each projects as _project, i}
+                                    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                    <div class="button"   on:click={() => {currentIndex = i
+                                        document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
+                                        }}>
+
+                                        <div class:navigation-active={currentIndex === i}  />
+                                    </div>
+                                    {/each}
+                                    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
+                                    <div class="button"   on:click={() => {currentIndex = -2
+                                        document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
+                                        }}>
+
+                                        <div class:navigation-active={currentIndex === -2} />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                         </div>
 
 <style lang="scss">
@@ -202,15 +211,32 @@ onMount(() => {
             justify-content: space-evenly;
 
             &>div {
-                border: 1.5px solid white;
-                border-radius: 50%;
-                min-width: 1vh;
-                min-height: 1vh;
-                transition: 700ms;
+
+                width: 80%;
+                display: flex;
+                justify-content: center;
 
                 &:hover {
-                    background-color: white;
-                    box-shadow: 0 0 10px 2px white;
+                    &>div {
+                        background-color: white;
+                        box-shadow: 0 0 10px 2px white;
+                    }
+                }
+
+                &>div {
+
+                    border: 1.5px solid white;
+                    border-radius: 50%;
+                    min-width: 1vh;
+                    min-height: 1vh;
+                    max-width: 1vh;
+                    max-height: 1vh;
+                    transition: 700ms;
+
+                    &:hover {
+                        background-color: white;
+                        box-shadow: 0 0 10px 2px white;
+                    }
                 }
 
             }
