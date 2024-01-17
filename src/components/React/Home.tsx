@@ -40,6 +40,7 @@ export const Home = () => {
 
   useLayoutEffect(() => {
     const spinner = document.querySelector(".spinner");
+
     if (spinner) (spinner as HTMLElement).style.display = "none";
 
     return () => {
