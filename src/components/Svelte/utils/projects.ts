@@ -49,7 +49,7 @@ export const projects = [
     "https://stckr.netlify.app/"
   ),
   new Project(
-    "A full-stack Snake game built on NextJS with PostegreSQL integration through Prisma. The user details and preferences are saved on the DB (Supabase). The speed, growth-rate, and size of the playing board are adjustable. If the user is viewing the App on a mobile device arrow buttons are automatically rendered.",
+    "A full-stack Snake game built on NextJS with PostegreSQL integration through Prisma. The user details and preferences are saved on the DB (Supabase). The speed, growth-rate, and size of the playing board are adjustable. If the user is viewing the App on a mobile device, arrow buttons are automatically rendered.",
     ["NextJS", "Prisma (endpoints and DB management)", "PostgreSQL", "SASS"],
     "snake",
     "https://github.com/R-zine/snake-next-js",
