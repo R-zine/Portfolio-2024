@@ -21,7 +21,7 @@ class Project {
 
 export const projects = [
   new Project(
-    "This is my previous portfolio website made in 2023. It utilizes React Fiber / Drei to create a fully 3D web-experience. Global state is managed through Redux, while physics are done with Rapier. Motion is powered by GSAP. Due to it's very experimental nature, it is only available on PC.",
+    "This is my previous portfolio website made in 2023. It utilizes React Fiber / Drei to create a full 3D web-experience. Global state is managed through Redux, while physics are done with Rapier. Motion is powered by GSAP. Due to it's very experimental nature, it is only available on PC.",
     [
       "React / Vite",
       "React Three Fiber / Drei",
