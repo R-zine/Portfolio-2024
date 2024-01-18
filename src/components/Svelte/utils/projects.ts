@@ -81,7 +81,7 @@ export const projects = [
     "https://item-hunter-preview.netlify.app/"
   ),
   new Project(
-    "An architectural portfolio website, featuring many different types of animations and an unique styling approach. The website is fully responsive and has a custom 3D model in the contacts' page.",
+    "An architectural portfolio website, featuring many different types of animations and a unique styling approach. The website is fully responsive and has a custom 3D model in the contacts' page.",
     [
       "Vite/ React with routing",
       "GSAP",
