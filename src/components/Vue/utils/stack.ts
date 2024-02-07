@@ -16,13 +16,13 @@ export const TechArray: Tech[] = [
     "Typescript",
     "ts",
     2020,
-    "Typescript is basically mandatory when working on any project that has more than one developer working on it and it can still be very useful even if coding on my own. I like the flexibility it provides and how seemlessly it's integrated with all major frameworks."
+    "Typescript is basically mandatory when working on any project that has more than one developer working on it and it can still be very useful even if coding on my own. I like the flexibility it provides and how seamlessly it's integrated with all major frameworks."
   ),
   new Tech(
     "Javascript",
     "js",
     2007,
-    "My journey with JavaScript started one summer when I was hired by the local PC-store to inject content into premade templates. Ever since then I've learned a lot, but still find new things to learn every day. Fundamentally, I think JS is the language for me. I find there is a lot of beauty in it's weird and chaotic ways."
+    "My journey with JavaScript started one summer when I was hired by the local PC-store to inject content into premade templates. Ever since then I've learned a lot, but still find new things to learn every day. Fundamentally, I think JS is the language for me. I find there is a lot of beauty in its weird and chaotic ways."
   ),
   new Tech(
     "HTML",
@@ -70,7 +70,7 @@ export const TechArray: Tech[] = [
     "Astro",
     "astro",
     2022,
-    "This website is built with Astro and I love it! Astro is similar to Next, in the sence that it allows mixing of server-rendered code and React client components, but Astro comes with the added benefit of being able to use any of the popular frameworks (besides Angular) out-of-the-box. It also has many additional integrations, most-notably a .MDX to HTML integration which is really cool for cases, where documentation has to be maintained without tools like Confluence."
+    "This website is built with Astro and I love it! Astro is similar to Next, in the sence that it allows mixing of server-rendered code and React client components, but Astro comes with the added benefit of being able to use any of the popular frameworks (besides Angular) out-of-the-box. It also has many additional integrations, most notably a .MDX to HTML integration which is really cool for cases where documentation has to be maintained without tools like Confluence."
   ),
   new Tech(
     "React Native / Expo",
@@ -100,7 +100,7 @@ export const TechArray: Tech[] = [
     "Cypress",
     "cypress",
     2021,
-    "Cypress is my favorite UI/e2e testing library. While the Cypress cloud/dashboard service tends to be a point of debate in terms of cost efficiency and features, the underlying library is the most dev-friendly way to write tests in my opinion. Thankfully, there are open-source alterinatives to hook up the test suite to, e.g. Sorry Cypress, but they do require some finicking on the devOps side."
+    "Cypress is my favorite UI/e2e testing library. While the Cypress cloud/dashboard service tends to be a point of debate in terms of cost efficiency and features, the underlying library is the most dev-friendly way to write tests in my opinion. Thankfully, there are open-source alterinatives to hook up the test suite to, e.g. Sorry Cypress, but they do require some finicking work on the devOps side."
   ),
   new Tech(
     "Jest / Vitest",
@@ -124,7 +124,7 @@ export const TechArray: Tech[] = [
     "Svelte",
     "svelte",
     2022,
-    "Svelte is the most-loved front-end framework and there are reasons why. Personally, I see it as being similar to React with 70% less boilerplate. Sadly, despite its passionate community, it also lacks the eco-systems of either React or Angular. With its recent addition of in-built animation events, it's been my prime choice for personal projects involving visually-heavy designs."
+    "Svelte is the most loved front-end framework and there are reasons why. Personally, I see it as being similar to React with 70% less boilerplate. Sadly, despite its passionate community, it also lacks the ecosystems of either React or Angular. With its recent addition of in-built animation events, it's been my prime choice for personal projects involving visually heavy designs."
   ),
   new Tech(
     "Prisma",
@@ -136,7 +136,7 @@ export const TechArray: Tech[] = [
     "NodeJS",
     "node",
     2020,
-    "NodeJS is an integral part of any JS/TS project, regardless of scale and chosen frameworks. I have used Node from installing NPM packages and running build scripts, to writing my own multiplex dev servers."
+    "NodeJS is an integral part of any JS/TS project, regardless of scale and chosen frameworks. I have used Node from installing NPM packages and running build scripts to writing my own multiplex dev servers."
   ),
   new Tech(
     "NestJS",
@@ -154,6 +154,6 @@ export const TechArray: Tech[] = [
     "ActionScript / Flash",
     "actionscript",
     2006,
-    "This is where my journey into programming started. As I was growing up, I fell in love with the quirky Flash games and animations (especially the stickman vs the creator series) and I just had to learn to do that. While, admitedly, my games never made it to the front page of Kongregate, I learned a lot about coding by trying to reproduce some of the cool things others did. I earned my first IT paycheck with ActionScript by making a bunch of interactive banners."
+    "This is where my journey into programming started. As I was growing up, I fell in love with the quirky Flash games and animations (especially the stickman vs the creator series) and I just had to learn to do that. While, admittedly, my games never made it to the front page of Kongregate, I learned a lot about coding by trying to reproduce some of the cool things others did. I earned my first IT paycheck with ActionScript by making a bunch of interactive banners."
   ),
 ];
