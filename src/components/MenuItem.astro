@@ -18,10 +18,9 @@ const { title, route, isActive } = Astro.props;
     aria-current={isActive ? "page" : undefined}
   >
     <span class="before" aria-hidden="true">/</span>
-    <span>
+    <span class="label">
       {title}
     </span>
-    <div class="button"></div>
   </a>
 </li>
 <style define:vars={{ grey: colors.grey }}>
@@ -29,26 +28,24 @@ const { title, route, isActive } = Astro.props;
     text-decoration: none;
     display: flex;
     gap: 12px;
-    transition: 300ms;
+    align-items: baseline;
+    transition: margin-left 300ms ease;
   }
 
   .active {
     pointer-events: none;
     cursor: none;
     margin-left: 10px;
-    text-shadow:
-      0 0 5px white,
-      0 0 3px white;
-
-    & > div {
-      box-shadow: 0 5px 2px white;
-      left: -40px;
-      top: 1.2rem;
+    .label {
+      animation: menu-label-glow 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .before {
-      text-shadow: -10px 0 white;
-      text-decoration: underline;
+      animation: menu-marker-reveal 600ms ease-out both;
+
+      &::after {
+        animation: menu-line-reveal 500ms ease-out both;
+      }
     }
   }
 
@@ -56,40 +53,99 @@ const { title, route, isActive } = Astro.props;
     list-style-type: none;
   }
 
-  a {
-    &:hover {
-      margin-left: 10px;
+  a:hover,
+  a:active {
+    margin-left: 10px;
 
-      & > div {
-        box-shadow: 0 5px 2px white;
-        left: -40px;
-        top: 1.2rem;
-      }
+    .before {
+      color: white;
+      text-shadow: -10px 0 white;
 
-      .before {
-        text-shadow: -10px 0 white;
+      &::after {
+        opacity: 1;
+        transform: scaleX(1);
       }
+    }
+
+    .label {
+      color: white;
+      text-shadow:
+        0 0 2px white,
+        0 0 6px rgb(255 255 255 / 80%),
+        0 0 13px rgb(255 255 255 / 55%);
     }
   }
 
   .before {
+    position: relative;
+    display: inline-block;
     text-shadow: 0 0 #ffffff;
-    transition: 300ms;
+    transition:
+      color 300ms ease,
+      text-shadow 300ms ease;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: -10px;
+      width: 30px;
+      height: 2px;
+      background: white;
+      opacity: 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition:
+        opacity 300ms ease,
+        transform 300ms ease;
+    }
   }
 
   span {
     color: var(--grey);
     margin: 0;
     font-size: 1.2rem;
-    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      color 600ms cubic-bezier(0.22, 1, 0.36, 1),
+      text-shadow 600ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  div {
-    width: 5rem;
-    height: 1px;
-    position: relative;
-    top: 1.5rem;
-    left: -8.5rem;
-    transition: 300ms;
+  @keyframes menu-label-glow {
+    from {
+      color: var(--grey);
+      text-shadow: 0 0 transparent;
+    }
+
+    to {
+      color: white;
+      text-shadow:
+        0 0 2px white,
+        0 0 6px rgb(255 255 255 / 80%),
+        0 0 13px rgb(255 255 255 / 55%);
+    }
+  }
+
+  @keyframes menu-marker-reveal {
+    from {
+      color: var(--grey);
+      text-shadow: 0 0 transparent;
+    }
+
+    to {
+      color: white;
+      text-shadow: -10px 0 white;
+    }
+  }
+
+  @keyframes menu-line-reveal {
+    from {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    to {
+      opacity: 1;
+      transform: scaleX(1);
+    }
   }
 </style>

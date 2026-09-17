@@ -52,7 +52,7 @@ onMount(() => {
 
                         </div>
 
-                        {#each projects as project, i}
+                        {#each projects as project, i (project.source)}
                         <SingleProject {...project} index={i} bind:currentIndex />
                         {/each}
                         <div data-id="-2" style="display: flex; align-items: center; justify-content: center;" use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
@@ -75,7 +75,7 @@ onMount(() => {
 
                                     <div class:navigation-active={currentIndex === -1}/>
                                     </button>
-                                    {#each projects as _project, i}
+                                    {#each projects as project, i (project.source)}
                                     <button type="button" aria-label={`Go to project ${i + 1}`} class="button" on:click={() => scrollToIndex(i)}>
 
                                         <div class:navigation-active={currentIndex === i}  />

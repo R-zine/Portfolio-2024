@@ -1,13 +1,20 @@
-<script setup>
-const props = defineProps({
-  url: String,
-  name: String,
-});
+<script setup lang="ts">
+defineProps<{
+  url: string;
+  name: string;
+}>();
 </script>
 
 <template>
-  <button type="button" class="icon-btn-cont button" :aria-label="`View details for ${name}`">
-    <img :src="url" alt="" />
+  <button
+    type="button"
+    class="icon-btn-cont button"
+    :aria-label="`View details for ${name}`"
+  >
+    <img
+      :src="url"
+      alt=""
+    >
   </button>
 </template>
 

@@ -101,11 +101,55 @@ test.describe("routing and progressive enhancement", () => {
     await expect(websiteLink).toHaveAttribute("href", /^https:\/\//);
   });
 
+  test("fades project sections into view while scrolling", async ({ page }) => {
+    await page.goto("/projects");
+
+    const firstProject = page.locator('.single-project[data-id="0"]');
+    const description = firstProject.locator(".body");
+    await expect(description).toHaveCSS("opacity", "0");
+    await expect(description).toHaveCSS("transition-property", /opacity/);
+    await expect(description).toHaveCSS("transition-duration", /^0\.35s/);
+
+    await description.scrollIntoViewIfNeeded();
+
+    await expect(description).toHaveCSS("opacity", "1");
+    await expect(description).toHaveCSS("transition-duration", /^0\.75s/);
+  });
+
   test("prefetches and preserves framework pages across navigation", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 1800, height: 900 });
     await page.goto("/projects");
+
+    const activeProjectLink = page.getByRole("link", { name: "Projects" });
+    await expect(activeProjectLink).toHaveAttribute("aria-current", "page");
+    await expect(activeProjectLink.locator(".label")).toHaveCSS(
+      "animation-name",
+      "menu-label-glow",
+    );
+    await expect(activeProjectLink.locator(".label")).toHaveCSS(
+      "text-shadow",
+      /rgb\(255, 255, 255\)/,
+    );
+    await expect(activeProjectLink.locator(".label")).toHaveCSS(
+      "filter",
+      "none",
+    );
+    await expect
+      .poll(() =>
+        activeProjectLink.locator(".before").evaluate((marker) =>
+          getComputedStyle(marker, "::after").getPropertyValue("opacity"),
+        ),
+      )
+      .toBe("1");
+    await expect
+      .poll(() =>
+        activeProjectLink.locator(".before").evaluate((marker) =>
+          getComputedStyle(marker, "::after").getPropertyValue("box-shadow"),
+        ),
+      )
+      .toBe("none");
 
     const stackLink = page.getByRole("link", { name: "Stack" });
     await expect(stackLink).toHaveAttribute("data-astro-prefetch", "");
@@ -146,8 +190,30 @@ test.describe("routing and progressive enhancement", () => {
     await page.goto("/projects/");
 
     const openMenu = page.getByRole("button", { name: "Open navigation menu" });
-    await openMenu.focus();
-    await page.keyboard.press("Enter");
+    await expect(openMenu).toBeVisible();
+    await expect(openMenu).toHaveCSS("z-index", "4900");
+    await expect(openMenu.locator("svg")).toHaveCSS("transform", "none");
+
+    const menuButtonBox = await openMenu.boundingBox();
+    const menuIconBox = await openMenu.locator("svg").boundingBox();
+    expect(menuButtonBox).not.toBeNull();
+    expect(menuIconBox).not.toBeNull();
+    expect(menuIconBox!.width).toBeLessThan(menuButtonBox!.width);
+    expect(menuIconBox!.height).toBeLessThan(menuButtonBox!.height);
+
+    const menuButtonIsOnTop = await page.evaluate(({ x, y }) => {
+      return Boolean(
+        document
+          .elementFromPoint(x, y)
+          ?.closest('button[aria-label="Open navigation menu"]'),
+      );
+    }, {
+      x: menuButtonBox!.x + menuButtonBox!.width / 2,
+      y: menuButtonBox!.y + menuButtonBox!.height / 2,
+    });
+    expect(menuButtonIsOnTop).toBe(true);
+
+    await openMenu.click();
 
     await expect(page.locator(".menu-shown")).toBeVisible();
     await expect(page.getByRole("link", { name: "Projects" })).toBeVisible();

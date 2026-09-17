@@ -5,6 +5,8 @@ import ReturnButton from "./components/ReturnButton.vue";
 import { Tech, TechArray } from "./utils/stack";
 import gsap from "gsap";
 
+defineOptions({ name: "TechnologyStack" });
+
 // reactive state
 const isLoaded = ref(false);
 const hovered = ref("Hover an icon");
@@ -78,7 +80,10 @@ watch(titleRef, async (ref) => {
 </script>
 
 <template>
-  <div :style="`opacity: ${isLoaded ? 1 : 0}`" class="container">
+  <div
+    :style="`opacity: ${isLoaded ? 1 : 0}`"
+    class="container"
+  >
     <div
       v-if="!isDetails"
       class="grid"
@@ -99,18 +104,35 @@ watch(titleRef, async (ref) => {
         @click="selected = tech"
       />
     </div>
-    <div :class="{ eye: true, white: selected?.name }">{{ hovered }}</div>
+    <div :class="{ eye: true, white: selected?.name }">
+      {{ hovered }}
+    </div>
   </div>
-  <div v-if="isDetails" :class="{ 'details-cont': true, fade: isBack }">
+  <div
+    v-if="isDetails"
+    :class="{ 'details-cont': true, fade: isBack }"
+  >
     <div class="header-cont">
-      <div class="img-cont" ref="imgRef">
-        <img :src="selected?.url" :alt="`${selected?.name} logo`" />
+      <div
+        ref="imgRef"
+        class="img-cont"
+      >
+        <img
+          :src="selected?.url"
+          :alt="`${selected?.name} logo`"
+        >
       </div>
       <div class="header">
-        <div class="title" ref="titleRef">
+        <div
+          ref="titleRef"
+          class="title"
+        >
           {{ selected?.name }}
         </div>
-        <div class="year" ref="yearRef">
+        <div
+          ref="yearRef"
+          class="year"
+        >
           Experience since:
           <span>
             {{ selected?.year }}
@@ -118,10 +140,16 @@ watch(titleRef, async (ref) => {
         </div>
       </div>
     </div>
-    <div class="description" ref="descriptionRef">
+    <div
+      ref="descriptionRef"
+      class="description"
+    >
       {{ selected?.description }}
     </div>
-    <ReturnButton @click="isBack = true" ref="returnRef" />
+    <ReturnButton
+      ref="returnRef"
+      @click="isBack = true"
+    />
   </div>
 </template>
 

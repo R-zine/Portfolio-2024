@@ -22,6 +22,7 @@ starts Astro. Angular's generated browser assets are written to
 ## Quality checks
 
 ```sh
+yarn lint
 yarn typecheck
 yarn test:unit
 yarn test:e2e
@@ -31,6 +32,11 @@ yarn build
 The unit suite covers route normalization and progressive enhancement logic.
 The Playwright suite covers navigation, asset paths, contact-form delivery
 states, responsive behavior, and automated WCAG A/AA checks.
+
+Installing dependencies also installs the Husky pre-commit hook. Before each
+commit, `yarn validate` runs ESLint, Astro and Angular type checks, unit tests,
+and the complete Playwright suite. Run the same command manually to reproduce
+the hook outside Git.
 
 ## Architecture
 

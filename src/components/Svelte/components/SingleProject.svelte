@@ -2,10 +2,6 @@
 import {
     inview
 } from 'svelte-inview';
-import {
-    fade
-} from 'svelte/transition';
-
 export let description: string;
 export let tech: string[];
 export let preview: string;
@@ -31,40 +27,40 @@ let stage1 = false,
     stage1 = detail.inView;
     }}>
     
-        <div class="title" class:hidden={!stage1}>
+        <div class="title reveal-content" class:hidden={!stage1}>
             Description:
         </div>
 
-        <div class="body" class:hidden={!stage1}>
+        <div class="body reveal-content reveal-body" class:hidden={!stage1}>
             {description}
         </div>
-        <hr  class:hidden={!stage1} />
+        <hr class="reveal-content reveal-divider" class:hidden={!stage1} />
     </div>
 
     <div use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
     on:inview_change={({ detail }) => {
     stage2 = detail.inView;
     }}>
-        <div class="title"  class:hidden={!stage2}>Tech used:</div>
-        <div class="body-tech" class:hidden={!stage2}>
-            {#each tech as t}
+        <div class="title reveal-content" class:hidden={!stage2}>Tech used:</div>
+        <div class="body-tech reveal-content reveal-body" class:hidden={!stage2}>
+            {#each tech as t (t)}
             <div class="tech">
                 {t}
             </div>
             {/each}
         </div>
-        <hr class:hidden={!stage2} />
+        <hr class="reveal-content reveal-divider" class:hidden={!stage2} />
     </div>
     <div use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
     on:inview_change={({ detail }) => {
     stage3 = detail.inView;
     }}>
-        <div class="title" class:hidden={!stage3}>Links:</div>
-        <div class="links" class:hidden={!stage3}>
+        <div class="title reveal-content" class:hidden={!stage3}>Links:</div>
+        <div class="links reveal-content reveal-body" class:hidden={!stage3}>
             <a class="button" href={source} target="_blank" rel="noopener noreferrer">Source</a>
             <a class="button" href={site} target="_blank" rel="noopener noreferrer">Website</a>
         </div>
-        <hr class:hidden={!stage3} />
+        <hr class="reveal-content reveal-divider" class:hidden={!stage3} />
     </div>
 
     <div class="bottom-pad" />
@@ -75,10 +71,6 @@ let stage1 = false,
     min-height: 100vh;
     text-align: center;
     position: relative !important;
-
-    .hidden {
-        visibility: hidden;
-    }
 
     .grayscale {
         filter: grayscale(100%) opacity(0.5);
@@ -98,13 +90,11 @@ let stage1 = false,
             color: black;
             margin-bottom: 2vh;
             font-weight: bolder;
-            transition: 300ms;
         }
 
         &>.body {
             padding: 1vh 15%;
             background-color: black;
-            transition: 600ms;
 
         }
 
@@ -115,7 +105,6 @@ let stage1 = false,
             justify-content: center;
             gap: 2vh;
             margin-bottom: 5vh;
-            transition: 600ms;
 
             &>.tech {
                 border: 2px solid white;
@@ -134,7 +123,6 @@ let stage1 = false,
             display: flex;
             justify-content: space-evenly;
             align-items: center;
-            transition: 600ms;
 
             &>a {
                 width: 25%;
@@ -158,7 +146,6 @@ let stage1 = false,
         &>hr {
             width: 50%;
             margin-bottom: 5vh;
-            transition: 900ms;
         }
     }
 
@@ -174,6 +161,36 @@ let stage1 = false,
         z-index: 1 !important;
         transition: 900ms ease-out;
 
+    }
+
+    .reveal-content {
+        --reveal-delay: 0ms;
+        --reveal-duration: 550ms;
+
+        opacity: 1;
+        visibility: visible;
+        transition:
+            opacity var(--reveal-duration) ease-out var(--reveal-delay),
+            visibility 0s linear 0s;
+    }
+
+    .reveal-body {
+        --reveal-delay: 100ms;
+        --reveal-duration: 750ms;
+    }
+
+    .reveal-divider {
+        --reveal-delay: 180ms;
+        --reveal-duration: 650ms;
+    }
+
+    .reveal-content.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 350ms ease,
+            visibility 0s linear 350ms;
     }
 
 }

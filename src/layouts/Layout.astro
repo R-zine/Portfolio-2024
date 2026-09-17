@@ -192,6 +192,7 @@ const route = normalizePathname(Astro.url.pathname);
         position: fixed;
         left: 0;
         top: 49vh;
+        z-index: 4900;
       }
 
       #info-cont,
@@ -420,9 +421,11 @@ const route = normalizePathname(Astro.url.pathname);
         position: fixed;
         top: 4px;
         left: 4px;
-        padding: 1.6rem;
-        width: 0.3vh;
-        height: 0.3vh;
+        z-index: 4900;
+        box-sizing: border-box;
+        padding: 0;
+        width: 3.25rem;
+        height: 3.25rem;
         display: none;
         justify-content: center;
         align-items: center;
@@ -433,7 +436,9 @@ const route = normalizePathname(Astro.url.pathname);
 
         & > svg {
           filter: invert(100%);
-          transform: scale(6) !important;
+          width: 1.1rem;
+          height: 1.1rem;
+          transform: none;
         }
       }
 
@@ -448,7 +453,9 @@ const route = normalizePathname(Astro.url.pathname);
         display: none;
 
         .menu-close-btn > svg {
-          transform: scale(6) !important;
+          width: 1rem;
+          height: 1rem;
+          transform: none;
         }
       }
 

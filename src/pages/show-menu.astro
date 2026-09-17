@@ -11,7 +11,7 @@ const currentPage = normalizePathname(Astro.url.searchParams.get("page"));
     hx-get="/remove-menu"
     hx-target="#mobile-menu"
     hx-swap="outerHTML"
-    style="position: fixed; top: 4px; left: 4px; border: 1px solid white; border-radius: 50%; padding: 1.6rem; width: 0.3vh; height: 0.3vh; background-color: white;
+    style="position: fixed; top: 4px; left: 4px; box-sizing: border-box; border: 1px solid white; border-radius: 50%; padding: 0; width: 3.25rem; height: 3.25rem; background-color: white;
     box-shadow: 0 0 15px white; display: flex; justify-content: center; align-items: center;"
     class="menu-close-btn button"
   >
