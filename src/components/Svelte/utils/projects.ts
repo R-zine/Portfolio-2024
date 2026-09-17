@@ -13,7 +13,7 @@ class Project {
   ) {
     this.description = description;
     this.tech = tech;
-    this.preview = `./projects/${preview}.jpg`;
+    this.preview = `/projects/${preview}.jpg`;
     this.source = source;
     this.site = site;
   }

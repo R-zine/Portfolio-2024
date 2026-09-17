@@ -1,25 +1,46 @@
-# Welcome to my 2024 Developer Portfolio repository!
+# Ivan Radev's developer portfolio
 
 [View Live Website](https://ivanradev.site)
 
-## Installation and running
+This portfolio demonstrates Astro pages that host React, Vue, Svelte, Angular,
+and HTMX features while retaining an accessible HTML fallback.
 
-### To install:
-
-```sh
-npm i
-```
-
-### To run in a local dev server:
+## Installation and development
 
 ```sh
-npm run dev
+yarn install
 ```
 
-## About
+```sh
+yarn dev
+```
 
-This project is made with Astro with React, Vue, Svelte and HTMX integrations. There is also an Angular page, which, at the time of writing, cannot be integrated with the other frameworks, because it breaks them. Is this a good idea? No, not really, but to me that's the purpose of creating a personal dev portfolio - to push both my own personal limits as well as those of the technology I'm using on a daily basis.
+The development command builds the Angular contact application first, then
+starts Astro. Angular's generated browser assets are written to
+`public/angular/browser` with stable filenames so Astro can serve them.
+
+## Quality checks
+
+```sh
+yarn typecheck
+yarn test:unit
+yarn test:e2e
+yarn build
+```
+
+The unit suite covers route normalization and progressive enhancement logic.
+The Playwright suite covers navigation, asset paths, contact-form delivery
+states, responsive behavior, and automated WCAG A/AA checks.
+
+## Architecture
+
+Astro owns routing and the shared layout. Each showcase route demonstrates a
+different UI framework: React Three Fiber on the home page, Svelte on Projects,
+Vue on Stack, and Angular reactive forms on Contact. The large WebGL dependency
+is loaded only for WebGL-capable desktop-class devices that permit motion; compact
+viewports and reduced-motion users get the lightweight HTML home experience.
 
 ## Contact
 
-Feel free to message me here or on [linkedIn](https://www.linkedin.com/in/ivan-radev/)
+Feel free to message me through the website or on
+[LinkedIn](https://www.linkedin.com/in/ivan-radev/).

@@ -3,5 +3,6 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "react"
-  }
+  },
+  "exclude": ["dist", "public/angular"]
 }

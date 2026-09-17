@@ -1,13 +1,14 @@
 <script setup>
 const props = defineProps({
   url: String,
+  name: String,
 });
 </script>
 
 <template>
-  <div class="icon-btn-cont button">
-    <img :src="url" />
-  </div>
+  <button type="button" class="icon-btn-cont button" :aria-label="`View details for ${name}`">
+    <img :src="url" alt="" />
+  </button>
 </template>
 
 <style scoped>
@@ -19,6 +20,9 @@ const props = defineProps({
   border-radius: 50%;
   width: 6vh;
   height: 6vh;
+  padding: 0;
+  color: white;
+  background: black;
 
   transition: 1s background-color, 1.2s box-shadow;
 

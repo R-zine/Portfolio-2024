@@ -13,15 +13,22 @@ import {
     fade
 } from 'svelte/transition';
 
-let container: HTMLDivElement, percentage: number, currentIndex: number = -3;
+let container: HTMLDivElement, percentage = 0, currentIndex: number = -3;
+
+const scrollToIndex = (index: number) => {
+    currentIndex = index;
+    container?.querySelector(`[data-id="${index}"]`)?.scrollIntoView({ behavior: "smooth" });
+};
 
 onMount(() => {
     const spinner = document.querySelector(".spinner");
     if (spinner)(spinner as HTMLElement).style.display = "none";
 
-    setTimeout(() => {
+    const timer = window.setTimeout(() => {
         currentIndex = -1
     }, 600);
+
+    return () => window.clearTimeout(timer);
 })
 </script>
 
@@ -37,12 +44,11 @@ onMount(() => {
             <div >
                 Scroll down
             </div>
-            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-            <div class="svg-cont button" class:hidden={currentIndex !== -1} on:click={() => document.querySelector(`[data-id="${0}"]`)?.scrollIntoView()}>
+            <button type="button" aria-label="Scroll to the first project" class="svg-cont button" class:hidden={currentIndex !== -1} on:click={() => scrollToIndex(0)}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
                     <path d="M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z"/>
                         </svg>
-                        </div>
+                        </button>
 
                         </div>
 
@@ -54,8 +60,7 @@ onMount(() => {
                             if(detail.inView) currentIndex = -2;
                             }}>
                             {#if currentIndex === -2}
-                            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                            <div on:click={() => window.open("https://github.com/R-zine/Portfolio-2024", "_blank")} transition:fade={{delay: 300}} class="question button">?</div>
+                            <a href="https://github.com/R-zine/Portfolio-2024" target="_blank" rel="noopener noreferrer" aria-label="View this portfolio's source code" transition:fade={{delay: 300}} class="question button">?</a>
                             {:else}
                             <div class="question hidden">?</div>
                             {/if}
@@ -66,29 +71,20 @@ onMount(() => {
 
                         <div class="navigation">
                             <div>
-                                <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                <div class="button"   on:click={() => {currentIndex = -1
-                                    document.querySelector(`[data-id="${-1}"]`)?.scrollIntoView()
-                                    }}>
+                                <button type="button" aria-label="Go to the projects introduction" class="button" on:click={() => scrollToIndex(-1)}>
 
                                     <div class:navigation-active={currentIndex === -1}/>
-                                    </div>
+                                    </button>
                                     {#each projects as _project, i}
-                                    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                    <div class="button"   on:click={() => {currentIndex = i
-                                        document.querySelector(`[data-id="${i}"]`)?.scrollIntoView()
-                                        }}>
+                                    <button type="button" aria-label={`Go to project ${i + 1}`} class="button" on:click={() => scrollToIndex(i)}>
 
                                         <div class:navigation-active={currentIndex === i}  />
-                                    </div>
+                                    </button>
                                     {/each}
-                                    <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-                                    <div class="button"   on:click={() => {currentIndex = -2
-                                        document.querySelector(`[data-id="${-2}"]`)?.scrollIntoView()
-                                        }}>
+                                    <button type="button" aria-label="Go to the portfolio source link" class="button" on:click={() => scrollToIndex(-2)}>
 
                                         <div class:navigation-active={currentIndex === -2} />
-                                    </div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +104,7 @@ onMount(() => {
         conic-gradient(white calc(var(--percent) * 1%), black 0);
 
     .hidden {
-        opacity: 0;
+        visibility: hidden;
     }
 
     &>.scroll-cont {
@@ -159,6 +155,8 @@ onMount(() => {
             align-items: center;
             justify-content: center;
             animation: pulse 1.5s infinite;
+            color: white;
+            background: black;
 
             &>svg {
                 filter: invert(100%);
@@ -181,6 +179,8 @@ onMount(() => {
         justify-self: center;
         z-index: 3000;
         position: relative !important;
+        color: white;
+        text-decoration: none;
         transition: background-color 600ms, color 900ms, box-shadow 1300ms;
         transition-timing-function: ease-out;
 
@@ -210,11 +210,16 @@ onMount(() => {
             align-items: center;
             justify-content: space-evenly;
 
-            &>div {
+            &>button {
 
                 width: 80%;
                 display: flex;
                 justify-content: center;
+                appearance: none;
+                border: 0;
+                padding: 0;
+                color: inherit;
+                background: transparent;
 
                 &:hover {
                     &>div {

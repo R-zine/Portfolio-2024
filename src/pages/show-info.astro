@@ -1,38 +1,32 @@
 ---
-const currentPage = Astro.url.searchParams.get("page");
+import { getPageInformation } from "../utils/routes";
 
-let message = "";
-if (currentPage === "/")
-  message = `This page is written in React 18 and utilizes React-Three-Fiber / Drei to display a webGL-powered 3D scene. The Info button and the mobile menu functionalities are built with HTMX. For mobile devices with bad webGL support this page falls back to 2D.`;
-
-if (currentPage === "/projects")
-  message =
-    "This page is written in Svelte 4 and utilizes svelte-inview and the built-in transitions API.";
-
-if (currentPage === "/stack")
-  message =
-    "This page is written in Vue 3 utilizing the Compositions API. The animations are powered by GSAP.";
-
-if (currentPage === "/contact" || currentPage === "/contact/")
-  message =
-    "This page is written in Angular 17 with reactive form controls. As of the beginning of 2024, Angular integration within Astro breaks all other integrations, so this part of the project is imported through the HTML file, instead of being built directly with the rest of the project.";
+const message = getPageInformation(Astro.url.searchParams.get("page"));
 ---
 
 <div id="info-cont" style="pointer-events: auto;">
   <div class="info-shown">
-    <a
-      hx-get="./remove-info"
-      hx-target="#info-cont"
-      hx-swap="outerHTML"
-      data-astro-prefetch
-      style="width: 80%; height: 80%; border: 2px solid white; border-radius: 50%; display: flex; flex-direction: column; aligh-items: center; justify-content: center;"
+    <section
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="page-information-title"
+      style="width: 80%; height: 80%; border: 2px solid white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;"
     >
       <div
-        style="display: flex; flex-direction: column; aligh-items: center; justify-content: center; text-align: center; font-size: 24px; padding: 20%"
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 24px; padding: 20%"
       >
-        {message}
-        <div class="info-box-btn">
+        <h2 id="page-information-title" class="sr-only">About this page</h2>
+        <p>{message}</p>
+        <button
+          type="button"
+          class="info-box-btn button"
+          aria-label="Close page information"
+          hx-get="/remove-info"
+          hx-target="#info-cont"
+          hx-swap="outerHTML swap:360ms settle:30ms"
+        >
           <svg
+            aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             height="16"
             width="12"
@@ -42,10 +36,8 @@ if (currentPage === "/contact" || currentPage === "/contact/")
               d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
             ></path></svg
           >
-        </div>
+        </button>
       </div>
-    </a>
+    </section>
   </div>
 </div>
-
-<style></style>

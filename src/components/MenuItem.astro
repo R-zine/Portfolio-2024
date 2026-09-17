@@ -10,18 +10,26 @@ interface Props {
 const { title, route, isActive } = Astro.props;
 ---
 
-<a href={route} class={isActive ? "active button" : "button"}>
-  <li style="display: flex; gap: 12px">
-    <h2 class="before">/</h2>
-    <h2>
+<li>
+  <a
+    href={route}
+    data-astro-prefetch
+    class={isActive ? "active button" : "button"}
+    aria-current={isActive ? "page" : undefined}
+  >
+    <span class="before" aria-hidden="true">/</span>
+    <span>
       {title}
-    </h2>
+    </span>
     <div class="button"></div>
-  </li></a
->
+  </a>
+</li>
 <style define:vars={{ grey: colors.grey }}>
   a {
     text-decoration: none;
+    display: flex;
+    gap: 12px;
+    transition: 300ms;
   }
 
   .active {
@@ -46,8 +54,9 @@ const { title, route, isActive } = Astro.props;
 
   li {
     list-style-type: none;
-    transition: 300ms;
+  }
 
+  a {
     &:hover {
       margin-left: 10px;
 
@@ -68,7 +77,7 @@ const { title, route, isActive } = Astro.props;
     transition: 300ms;
   }
 
-  h2 {
+  span {
     color: var(--grey);
     margin: 0;
     font-size: 1.2rem;

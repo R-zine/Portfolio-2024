@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 import IconButton from "./components/IconButton.vue";
 import ReturnButton from "./components/ReturnButton.vue";
 import { Tech, TechArray } from "./utils/stack";
@@ -17,6 +17,8 @@ const titleRef = ref(null);
 const yearRef = ref(null);
 const descriptionRef = ref(null);
 const returnRef = ref(null);
+let detailsTimer: number | undefined;
+let returnTimer: number | undefined;
 
 // functions that mutate state and trigger updates
 
@@ -34,6 +36,12 @@ onMounted(() => {
   isLoaded.value = true;
 });
 
+onBeforeUnmount(() => {
+  window.clearTimeout(detailsTimer);
+  window.clearTimeout(returnTimer);
+  document.querySelector("#lightring")?.classList.remove("lightring");
+});
+
 watch(hovered, async (newHovered) => {
   if (newHovered)
     document.querySelector("#lightring")?.classList.add("lightring");
@@ -41,12 +49,15 @@ watch(hovered, async (newHovered) => {
 });
 
 watch(selected, async (newSelected) => {
-  if (newSelected) setTimeout(() => (isDetails.value = true), 1500);
+  window.clearTimeout(detailsTimer);
+  if (newSelected)
+    detailsTimer = window.setTimeout(() => (isDetails.value = true), 1500);
 });
 
 watch(isBack, async (newValue) => {
   if (newValue) {
-    setTimeout(() => {
+    window.clearTimeout(returnTimer);
+    returnTimer = window.setTimeout(() => {
       isDetails.value = false;
       selected.value = null;
       isBack.value = false;
@@ -77,10 +88,14 @@ watch(titleRef, async (ref) => {
     >
       <IconButton
         v-for="(tech, index) in TechArray"
+        :key="tech.name"
         :url="tech.url"
+        :name="tech.name"
         :style="index - isMid >= 0 ? `--i: ${index}` : null"
         @mouseover="hovered = tech.name"
         @mouseleave="hovered = ''"
+        @focus="hovered = tech.name"
+        @blur="hovered = ''"
         @click="selected = tech"
       />
     </div>
@@ -89,7 +104,7 @@ watch(titleRef, async (ref) => {
   <div v-if="isDetails" :class="{ 'details-cont': true, fade: isBack }">
     <div class="header-cont">
       <div class="img-cont" ref="imgRef">
-        <img :src="selected?.url" />
+        <img :src="selected?.url" :alt="`${selected?.name} logo`" />
       </div>
       <div class="header">
         <div class="title" ref="titleRef">
@@ -122,7 +137,7 @@ watch(titleRef, async (ref) => {
   position: relative;
   width: var(--cont-size);
   height: var(--cont-size);
-  & > div {
+  & > .icon-btn-cont {
     position: absolute;
     top: 50%;
     left: 50%;

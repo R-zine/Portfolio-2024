@@ -10,10 +10,19 @@
 
 $perspective: 10.5px
 
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap')
-
 .faded
     opacity: 0
+
+.sr-only
+    position: absolute
+    width: 1px
+    height: 1px
+    padding: 0
+    margin: -1px
+    overflow: hidden
+    clip: rect(0, 0, 0, 0)
+    white-space: nowrap
+    border: 0
 
 .content 
     @include flex
@@ -132,6 +141,7 @@ $perspective: 10.5px
     border: 2px solid white
     border-radius: 50%
     transition: box-shadow 400ms, background-color 1200ms
+    color: white
     
     & > svg
         filter: invert(100%)
@@ -157,6 +167,9 @@ $perspective: 10.5px
     border-width: 2px !important
     border-radius: 5px !important
     transition: box-shadow 400ms, background-color 1200ms, color 1400ms, opacity 500ms
+    background-color: black
+    color: white
+    font-family: 'Poiret One', sans-serif
 
     &:hover
         box-shadow: 0 0 15px inset white, 0 0 15px white, 0 0 30px white
@@ -166,6 +179,12 @@ $perspective: 10.5px
 .disabled
     pointer-events: none
     opacity: 0.5
+
+.form-error
+    max-width: 25vw
+    margin: 0
+    color: #ffb4b4
+    text-align: center
 
 .submit-active
     box-shadow: 0 0 15px inset white, 0 0 15px white, 0 0 30px white

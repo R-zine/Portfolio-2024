@@ -18,7 +18,6 @@ let stage1 = false,
     stage2 = false,
     stage3 = false
 
-const openLink = (link: string) => window.open(link, "_blank")
 </script>
 
 <div class="single-project" data-id={index} use:inview={{ unobserveOnEnter: false, rootMargin: '-20%' }}
@@ -62,10 +61,8 @@ const openLink = (link: string) => window.open(link, "_blank")
     }}>
         <div class="title" class:hidden={!stage3}>Links:</div>
         <div class="links" class:hidden={!stage3}>
-            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-            <div class="button" on:click={() => openLink(source)}>Source</div>
-            <!-- svelte-ignore a11y-no-static-element-interactions a11y-click-events-have-key-events -->
-            <div class="button" on:click={() => openLink(site)}>Website</div>
+            <a class="button" href={source} target="_blank" rel="noopener noreferrer">Source</a>
+            <a class="button" href={site} target="_blank" rel="noopener noreferrer">Website</a>
         </div>
         <hr class:hidden={!stage3} />
     </div>
@@ -80,7 +77,7 @@ const openLink = (link: string) => window.open(link, "_blank")
     position: relative !important;
 
     .hidden {
-        opacity: 0;
+        visibility: hidden;
     }
 
     .grayscale {
@@ -139,7 +136,7 @@ const openLink = (link: string) => window.open(link, "_blank")
             align-items: center;
             transition: 600ms;
 
-            &>div {
+            &>a {
                 width: 25%;
                 font-weight: bold;
                 padding: 1vh;
@@ -147,6 +144,8 @@ const openLink = (link: string) => window.open(link, "_blank")
                 transition: 600ms;
                 margin-bottom: 5vh;
                 background-color: black;
+                color: white;
+                text-decoration: none;
 
                 &:hover {
                     background-color: white;

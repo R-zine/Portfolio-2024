@@ -1,14 +1,81 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Home } from "../components/React/Home";
+import HomeFallback from "../components/HomeFallback.astro";
 ---
 
 <Layout title="Ivan Radev - Creative Developer Portfolio - Home">
-  <Home client:only="react" />
+  <div id="home-scene" hidden></div>
+  <HomeFallback />
 </Layout>
 
-<style>
-  .hidden {
-    display: none;
+<script>
+  import {
+    browserSupportsWebGL,
+    HOME_SCENE_MEDIA_QUERY,
+    shouldLoadHomeScene,
+  } from "../utils/home";
+
+  const mediaQuery = window.matchMedia(HOME_SCENE_MEDIA_QUERY);
+  const scene = document.querySelector<HTMLElement>("#home-scene");
+  const fallback = document.querySelector<HTMLElement>(".home-fallback");
+  const spinner = document.querySelector<HTMLElement>(".spinner");
+  let unmountScene: (() => void) | undefined;
+  let isLoadingScene = false;
+  let isPageActive = true;
+
+  async function updateHomeExperience() {
+    if (!scene || !fallback) return;
+
+    const shouldLoad = shouldLoadHomeScene(
+      mediaQuery.matches,
+      browserSupportsWebGL()
+    );
+
+    if (!shouldLoad) {
+      unmountScene?.();
+      unmountScene = undefined;
+      scene.hidden = true;
+      fallback.hidden = false;
+      if (spinner) spinner.style.display = "none";
+      return;
+    }
+
+    if (unmountScene || isLoadingScene) return;
+    isLoadingScene = true;
+
+    try {
+      const { mountHome } = await import("../components/React/mountHome");
+
+      if (
+        !isPageActive ||
+        !shouldLoadHomeScene(mediaQuery.matches, browserSupportsWebGL())
+      ) {
+        return;
+      }
+
+      fallback.hidden = true;
+      scene.hidden = false;
+      unmountScene = mountHome(scene);
+    } catch (error) {
+      console.error("Unable to load the 3D home scene", error);
+      scene.hidden = true;
+      fallback.hidden = false;
+      if (spinner) spinner.style.display = "none";
+    } finally {
+      isLoadingScene = false;
+    }
   }
-</style>
+
+  void updateHomeExperience();
+  mediaQuery.addEventListener("change", updateHomeExperience);
+
+  window.addEventListener(
+    "pagehide",
+    () => {
+      isPageActive = false;
+      mediaQuery.removeEventListener("change", updateHomeExperience);
+      unmountScene?.();
+    },
+    { once: true }
+  );
+</script>

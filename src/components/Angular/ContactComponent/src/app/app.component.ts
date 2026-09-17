@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -12,13 +11,15 @@ import emailjs from '@emailjs/browser';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.sass',
 })
 export class AppComponent implements OnInit {
   isFaded = true;
   isEmailSent = false;
+  isSending = false;
+  errorMessage = '';
 
   ngOnInit() {
     const spinner = document.querySelector('.spinner');
@@ -27,29 +28,56 @@ export class AppComponent implements OnInit {
   }
 
   contactForm = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
     email: new FormControl(
       '',
-      Validators.compose([Validators.required, Validators.email])
+      {
+        nonNullable: true,
+        validators: Validators.compose([Validators.required, Validators.email]),
+      }
     ),
-    subject: new FormControl('', Validators.required),
+    subject: new FormControl('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
     message: new FormControl(
       '',
-      Validators.compose([Validators.required, Validators.minLength(30)])
+      {
+        nonNullable: true,
+        validators: Validators.compose([
+          Validators.required,
+          Validators.minLength(30),
+        ]),
+      }
     ),
   });
 
-  public sendEmail(emailObj: any) {
-    emailjs.send(
-      'service_0lnz0ab',
-      'template_dw76dor',
-      emailObj,
-      'D0ctY-SwJYajvmMel'
-    );
-    this.isEmailSent = true;
-  }
+  async sendEmail(): Promise<void> {
+    if (this.contactForm.invalid || this.isSending) {
+      this.contactForm.markAllAsTouched();
+      return;
+    }
 
-  openURL(url: string) {
-    window.open(url, '_blank');
+    this.isSending = true;
+    this.errorMessage = '';
+
+    try {
+      await emailjs.send(
+        'service_0lnz0ab',
+        'template_dw76dor',
+        this.contactForm.getRawValue(),
+        'D0ctY-SwJYajvmMel'
+      );
+      this.isEmailSent = true;
+      this.contactForm.reset();
+    } catch {
+      this.errorMessage =
+        'Your message could not be sent. Please try again or contact me on LinkedIn.';
+    } finally {
+      this.isSending = false;
+    }
   }
 }

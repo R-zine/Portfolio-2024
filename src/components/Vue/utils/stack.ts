@@ -5,7 +5,7 @@ export class Tech {
   description: string;
   constructor(name: string, url: string, year: number, description: string) {
     this.name = name;
-    this.url = `./icons/${url}.png`;
+    this.url = `/icons/${url}.png`;
     this.year = year;
     this.description = description;
   }

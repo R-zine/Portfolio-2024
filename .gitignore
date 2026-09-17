@@ -1,11 +1,15 @@
 # build output
 dist/
+.netlify/
+playwright-report/
+test-results/
 
 # generated types
 .astro/
 
 # dependencies
 node_modules/
+src/components/Angular/ContactComponent/node_modules/
 
 # logs
 npm-debug.log*
