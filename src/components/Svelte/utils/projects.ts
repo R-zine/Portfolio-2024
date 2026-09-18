@@ -4,6 +4,7 @@ class Project {
   preview: string;
   source: string;
   site: string;
+
   constructor(
     description: string,
     tech: string[],
@@ -21,76 +22,152 @@ class Project {
 
 export const projects = [
   new Project(
-    "This is my previous portfolio website made in 2023. It utilizes React Fiber / Drei to create a full 3D web-experience. Global state is managed through Redux, while physics are done with Rapier. Motion is powered by GSAP. Due to it's very experimental nature, it is only available on PC.",
+    "AIditorial is a privacy-focused writing editor that runs a language model locally in the browser through WebLLM and WebGPU. It supports chat, focused edits, side-by-side comparisons, DOCX and ODT imports, resumable batch processing, and local history stored in IndexedDB—without sending the user's text to an application server.",
     [
-      "React / Vite",
+      "Next.js / React / TypeScript",
+      "WebLLM / WebGPU",
+      "Dexie / IndexedDB",
+      "Tailwind CSS / Radix UI",
+      "Vitest",
+    ],
+    "aiditorial",
+    "https://github.com/R-zine/aiditorial",
+    "https://aiditorial.netlify.app/"
+  ),
+  new Project(
+    "A reproducible browser benchmark for comparing five sorting algorithms across JavaScript and WebAssembly builds produced with AssemblyScript, Rust, C, C++, Go, and Zig. Experiments use identical seeded datasets, isolated Web Workers, warm-up and measured runs, correctness checks, robust statistics, interactive visualizations, and JSON or CSV export.",
+    [
+      "React / TypeScript / Vite",
+      "WebAssembly",
+      "AssemblyScript / Rust / C / C++ / Go / Zig",
+      "Web Workers",
+      "Material UI / Recharts / Zustand",
+    ],
+    "wasm-benchmark",
+    "https://github.com/R-zine/awesome-algo-benchmark",
+    "https://wasmbenchmark.netlify.app/"
+  ),
+  new Project(
+    "A low-level WebGL2 renderer written in Rust, compiled to WebAssembly, and presented through a React interface. It loads binary glTF scenes with node transforms, mesh instancing, textures, materials, and multiple primitive modes, while explicitly managing GPU resources and the WebAssembly lifecycle.",
+    [
+      "Rust / WebAssembly",
+      "WebGL2 / glTF",
+      "React / TypeScript / Vite",
+      "Material UI / Emotion",
+      "Vitest",
+    ],
+    "rust-model-viewer",
+    "https://github.com/R-zine/3D-model-viewer--Rust",
+    "https://rusty-model-viewer.netlify.app/"
+  ),
+  new Project(
+    "A GLB 2.0 renderer and parser written in Go, compiled to WebAssembly, and presented through a React interface. It uses only the Go standard library and browser WebGL2 APIs for strict, allocation-bounded parsing, scene hierarchies, mesh primitives, embedded textures, materials, responsive rendering, and deterministic GPU resource cleanup.",
+    [
+      "Go / WebAssembly",
+      "WebGL2 / glTF",
+      "React / TypeScript / Vite",
+      "Material UI / Emotion",
+      "Playwright",
+    ],
+    "go-model-viewer",
+    "https://github.com/R-zine/3D-model-viewer-go",
+    "https://goland-model-viewer.netlify.app/"
+  ),
+  new Project(
+    "Unfair Pong is a browser game that pits the player against a NEAT-trained agent. Points earned by returning balls can be spent on deliberately unfair upgrades until the AI can be beaten. The agent is trained in a deterministic Python environment, exported as a versioned network, and executed directly by the TypeScript client.",
+    [
+      "Python / NEAT-Python",
+      "React / TypeScript / Vite",
+      "Zustand",
+      "NES.css",
+      "Pygame (training visualization)",
+    ],
+    "unfair-pong",
+    "https://github.com/R-zine/PyPong",
+    "https://unfair-pong.netlify.app/"
+  ),
+  new Project(
+    "My 2023 developer portfolio is an experimental, desktop-first 3D experience. React Three Fiber and Drei render the scenes, Rapier provides physics, Redux Toolkit manages application state, and GSAP drives motion.",
+    [
+      "React / TypeScript / Vite",
       "React Three Fiber / Drei",
-      "React Rapier (3D engine)",
-      "Redux",
+      "Rapier physics",
+      "Redux Toolkit",
       "GSAP",
-      "Emotion / Styled",
+      "Emotion",
     ],
     "portfolio2023",
     "https://github.com/R-zine/Portfolio-2023",
     "https://ivanradev2023.netlify.app/"
   ),
   new Project(
-    "This is my dev portfolio from 2021. The site you are currently viewing was envisioned as a continuation of the old portfolio with multiple improvements. Albeit much simpler, I am happy how it turned out.",
-    ["React", "React-three-fiber (for the Tech tab)", "Blender", "GSAP"],
+    "My 2021 developer portfolio combines a conventional React interface with a Three.js-powered technology showcase. It uses React Router for navigation and GSAP for animation.",
+    [
+      "React / TypeScript",
+      "React Router",
+      "React Three Fiber / Drei",
+      "GSAP",
+      "Create React App",
+    ],
     "port2021",
     "https://github.com/R-zine/PortfolioSite2021/",
     "https://ivanradev2021.netlify.app/"
   ),
   new Project(
-    "A block-stacking 3D game with simulated physics through CannonJS. Written in React and the React-three-fiber ecosystem.",
-    ["React", "React-three-fiber", "CannonJS physics engine", "GSAP"],
+    "Stackr is a responsive 3D shape-stacking game with square, wide, round, and triangular pieces. Each successful placement increases the speed, the next-piece preview changes the strategy, and a missed placement sends the completed tower into a physics simulation. High scores are saved locally.",
+    [
+      "React / TypeScript / Vite",
+      "React Three Fiber / Drei",
+      "React Three Cannon",
+      "GSAP",
+      "Vitest",
+    ],
     "stacker",
     "https://github.com/R-zine/stackr",
     "https://stckr.netlify.app/"
   ),
   new Project(
-    "A full-stack Snake game built on NextJS with PostegreSQL integration through Prisma. The user details and preferences are saved on the DB (Supabase). The speed, growth-rate, and size of the playing board are adjustable. If the user is viewing the App on a mobile device, arrow buttons are automatically rendered.",
-    ["NextJS", "Prisma (endpoints and DB management)", "PostgreSQL", "SASS"],
+    "A full-stack Snake game built with Next.js, Prisma, and PostgreSQL hosted on Supabase. User preferences are persisted in the database, while the game speed, growth rate, and board size are configurable. Touch controls are rendered automatically on mobile devices.",
+    ["Next.js", "Prisma", "PostgreSQL / Supabase", "Sass"],
     "snake",
     "https://github.com/R-zine/snake-next-js",
     "https://next-snake-taupe.vercel.app/"
   ),
   new Project(
-    "This is my personal traditional paintings' website. It is built on React/Vite and uses Wordpress as a backend. Animations are powered by React Spring and GSAP.",
+    "A traditional-painting portfolio and storefront built with Astro and React. Painting metadata is compiled from local content for a fast static deployment, while Nanostores, React Spring, and GSAP power the interactive storefront. A separate local-only React and Django CMS manages painting records and images.",
     [
-      "React",
-      "Redux Toolkit (state and query management)",
-      "WordPress API",
-      "Emotion/styled",
-      "GSAP",
-      "React Spring",
+      "Astro / React / TypeScript",
+      "Nanostores",
+      "Emotion / React Spring / GSAP",
+      "Django / Ant Design (local CMS)",
     ],
     "art",
-    "https://github.com/R-zine/personal-paintings-website",
+    "https://github.com/R-zine/paitings-website-v2",
     "https://ivanradevart.netlify.app/"
   ),
   new Project(
-    "Item Hunter is an AI-powered game in which the user gets points when they find one of 300 items in the real world. This App is built on React Native (Expo) and has TensorFlowJS object recognition. The score and current selection are handled via Redux with persistors. The built .APK is available in the GitHub repository.",
+    "Item Hunter is a React Native scavenger-hunt game in which players select everyday objects and validate their finds with on-device image classification. The current version uses Apple Vision on iOS and Google ML Kit on Android, requests the camera only for an explicit scan, and saves progress locally.",
     [
-      "React Native with Expo",
-      "Redux with persistors (state management and saving data locally)",
-      "TensorFlowJS AI integration",
+      "React Native / Expo / TypeScript",
+      "Apple Vision / Google ML Kit",
+      "AsyncStorage",
+      "Jest / Expo tooling",
     ],
     "native",
     "https://github.com/R-zine/ItemHunter",
     "https://item-hunter-preview.netlify.app/"
   ),
   new Project(
-    "An architectural portfolio website, featuring many different types of animations and a unique styling approach. The website is fully responsive and has a custom 3D model in the contacts' page.",
+    "A responsive portfolio for an architect and interior designer, featuring image-rich project galleries, animated route transitions, and a custom 3D contact scene. The build also generates optimized responsive gallery assets and a compressed glTF model as part of its deployment pipeline.",
     [
-      "Vite/ React with routing",
-      "GSAP",
-      "Framer motion",
-      "React Spring",
-      "React Three Fiber (for the Contacts page)",
+      "React / TypeScript / Vite",
+      "React Router",
+      "Motion",
+      "React Three Fiber / Drei",
+      "Sharp / glTF Transform",
     ],
     "arch",
     "https://github.com/R-zine/architect-portfolio",
-    "https://dradeva.netlify.app/"
+    "https://dradeva.com/"
   ),
 ];

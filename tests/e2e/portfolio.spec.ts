@@ -68,7 +68,7 @@ test.describe("routing and progressive enhancement", () => {
     const projectImage = page.locator(".project-img").first();
     await expect(projectImage).toHaveAttribute(
       "style",
-      /\/projects\/portfolio2023\.jpg/
+      /\/projects\/[^"')]+\.jpg/
     );
 
     await page.goto("/stack/");
