@@ -1,4 +1,16 @@
-<div class="home-fallback" data-testid="home-fallback">
+---
+interface Props {
+  initiallyHidden?: boolean;
+}
+
+const { initiallyHidden = false } = Astro.props;
+---
+
+<div
+  class="home-fallback"
+  data-testid="home-fallback"
+  hidden={initiallyHidden}
+>
   <div>
     <p>Welcome.</p>
     <p>I am Ivan Radev,</p>

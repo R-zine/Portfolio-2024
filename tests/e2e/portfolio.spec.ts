@@ -14,6 +14,22 @@ async function expectNoSeriousAccessibilityViolations(page: Page) {
 }
 
 test.describe("routing and progressive enhancement", () => {
+  test("keeps the home fallback available without JavaScript", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width: 1440, height: 900 },
+    });
+    const page = await context.newPage();
+
+    await page.goto("/");
+
+    await expect(page.getByTestId("home-fallback")).toBeVisible();
+    await expect(page.locator(".spinner")).toBeHidden();
+    await context.close();
+  });
+
   test("uses the lightweight home fallback on compact viewports", async ({
     page,
   }) => {

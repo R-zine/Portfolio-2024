@@ -5,7 +5,18 @@ import HomeFallback from "../components/HomeFallback.astro";
 
 <Layout title="Ivan Radev - Creative Developer Portfolio - Home">
   <div id="home-scene" hidden></div>
-  <HomeFallback />
+  <HomeFallback initiallyHidden />
+  <noscript>
+    <style>
+      .home-fallback[hidden] {
+        display: flex !important;
+      }
+
+      .spinner {
+        display: none !important;
+      }
+    </style>
+  </noscript>
 </Layout>
 
 <script>
